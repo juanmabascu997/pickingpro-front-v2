@@ -18,6 +18,7 @@ import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import { Inventory, SettingsBackupRestore } from "@mui/icons-material";
+import { useSelector } from "react-redux";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -42,6 +43,7 @@ const Sidebar = () => {
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
+  const isLogin = useSelector(state => state.isLogin)
 
   return (
     <Box
@@ -62,6 +64,7 @@ const Sidebar = () => {
           color: "#6870fa !important",
         },
       }}
+      className={isLogin ? 'hiddeClass' : ''}
     >
       <ProSidebar collapsed={isCollapsed}>
         <Menu iconShape="square">
@@ -100,13 +103,13 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
 
-            <Typography
+            {/* <Typography
               variant="h4"
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >
               Tareas
-            </Typography>
+            </Typography> */}
 
             <Item
               title="Empaquetar ordenes"
@@ -130,7 +133,7 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
 
-            <Typography
+            {/* <Typography
               variant="h4"
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
@@ -222,7 +225,7 @@ const Sidebar = () => {
               icon={<MapOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+            /> */}
           </Box>
         </Menu>
       </ProSidebar>

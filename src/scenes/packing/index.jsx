@@ -3,6 +3,8 @@ import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import { mockDataPicked } from "../../data/mockData";
 import Header from "../../components/Header";
+import { GetPackingProducts } from "../../data/testData";
+import { useEffect } from "react";
 
 const Packing = () => {
   const theme = useTheme();
@@ -54,6 +56,10 @@ const Packing = () => {
       },
     },
   ];
+
+  useEffect(()=>{
+    let data = GetPackingProducts()
+  })
 
   return (
     <Box m="20px">
