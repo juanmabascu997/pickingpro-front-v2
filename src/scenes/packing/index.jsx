@@ -3,38 +3,44 @@ import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import { mockDataPicked } from "../../data/mockData";
 import Header from "../../components/Header";
-import { GetPackingProducts } from "../../data/testData";
 import { useEffect } from "react";
+import { setProductsToPack } from "../../redux/actions/actions";
+import { useDispatch, useSelector } from "react-redux";
 
 const Packing = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const dispatch = useDispatch();
+  const packingProducts = useSelector(state => state.packingProducts)
+
+  useEffect(()=>{
+    setProductsToPack().then((resp) => {
+      dispatch(resp);
+    })
+  },[])
+
+
   const columns = [
     {
       field: "id",
       headerName: "ID",
     },
     {
-      field: "picked_by_name",
+      field: "name",
       headerName: "Pickeado por",
       flex: 1,
       cellClassName: "name-column--cell",
     },
     {
-      field: "quantity_products",
-      headerName: "Cant. Productos",
+      field: "payment_status",
+      headerName: "Estado de pago",
       type: "number",
       headerAlign: "left",
       align: "left",
     },
     {
-      field: "quantity_orders",
-      headerName: "Cant. Pedidos",
-      flex: 1,
-    },
-    {
-      field: "location",
-      headerName: "Ubicación",
+      field: "order_picked",
+      headerName: "Pickeado",
       flex: 1,
     },
     {
@@ -56,10 +62,6 @@ const Packing = () => {
       },
     },
   ];
-
-  useEffect(()=>{
-    let data = GetPackingProducts()
-  })
 
   return (
     <Box m="20px">
@@ -96,7 +98,10 @@ const Packing = () => {
           },
         }}
       >
-        <DataGrid rows={mockDataPicked} columns={columns} />
+
+{/* <DataGrid rows={mockDataPicked} columns={columns} /> */}
+
+        <DataGrid rows={packingProducts} columns={columns}/>
       </Box>
     </Box>
   );

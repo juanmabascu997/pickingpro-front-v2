@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { useState } from "react";
+import { Routes, Route } from "react-router-dom";
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
 import Dashboard from "./scenes/dashboard";
@@ -8,30 +8,12 @@ import { ColorModeContext, useMode } from "./theme";
 import Packing from "./scenes/packing";
 import Picking from "./scenes/picking";
 import SignInSide from "./components/SignIn";
-import { setLogin } from "./redux/actions/actions";
-import { useDispatch } from "react-redux";
 import './App.css'
 import CookieVerification from "./scenes/global/CookieVerification";
 
 function App() {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
-  const dispatch = useDispatch();
-  const location = useLocation()
-
-  useEffect(()=>{
-    if(location) {
-      if(location.pathname === '/login'){
-        setLogin(true).then((res) => {
-          dispatch(res);
-        })
-      } else {
-        setLogin(false).then((res) => {
-          dispatch(res);
-        })
-      }
-    }
-  },[location])
 
   return (
 

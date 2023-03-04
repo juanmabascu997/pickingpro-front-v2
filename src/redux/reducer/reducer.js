@@ -1,12 +1,16 @@
 import {
     SET_LOGIN, 
     SET_USER,
+    SET_PACKING,
+    SET_PICKING
 } from "../actions/actions";
 
 
 const initialState = {
     isLogin: false,
-    user: {}
+    user: {},
+    packingProducts: [],
+    pickingProducts: [],
 }
 
 
@@ -18,10 +22,20 @@ export default function rootReducer(state = initialState, payload) {
                 isLogin: payload.payload
             }
         case SET_USER:
-            console.log(payload);
             return {
                 ...state,
-                user: payload.payload
+                user: payload.payload,
+                isLogin: false
+            }
+        case SET_PACKING:
+            return {
+                ...state,
+                packingProducts: payload.payload,
+            }
+        case SET_PICKING:
+            return {
+                ...state,
+                pickingProducts: payload.payload,
             }
         default:
         return { ...state };

@@ -1,0 +1,4 @@
+.noWrap {
+    flex-wrap: nowrap !important;
+    overflow-y: auto;
+}

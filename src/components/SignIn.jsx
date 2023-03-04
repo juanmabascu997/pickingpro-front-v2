@@ -15,6 +15,7 @@ import { useNavigate } from 'react-router-dom';
 import Register from './Register';
 import { setUser } from '../redux/actions/actions';
 import { useDispatch } from 'react-redux';
+import CookieVerification from '../scenes/global/CookieVerification';
 
 
 function Copyright(props) {
@@ -53,6 +54,7 @@ export default function SignInSide() {
 
   return (
     <ThemeProvider theme={theme}>
+      <CookieVerification />
       <Grid container component="main" sx={{ height: '100%', width: '100%' }}>
         <CssBaseline />
         <Grid

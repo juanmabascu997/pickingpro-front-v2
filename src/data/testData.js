@@ -1,5 +1,5 @@
 import axios from "axios";
-import { host, packingProductsRoute } from "../utils/APIRoutes";
+import { host, packingProductsRoute, pickingProductsRoute } from "../utils/APIRoutes";
 
 
 export async function Login(email, password) {
@@ -16,9 +16,11 @@ export async function Login(email, password) {
 export async function GetPackingProducts() {
 
   const myUser = await JSON.parse(localStorage.getItem("userData"));
-  console.log(myUser);
 
-  const myData = "{envio:bluemail}"
+  const myData = {
+    envio: 'bluemail',
+    
+  }
 
   const myRequest = {
     form: myData,
@@ -28,6 +30,27 @@ export async function GetPackingProducts() {
   const { data } = await axios.get(packingProductsRoute, {
     params: myRequest
   });
+  return data
+}
 
-  console.log(data);
+
+
+export async function GetPickingProducts(pedidos) {
+
+  const myUser = await JSON.parse(localStorage.getItem("userData"));
+
+  const myData = {
+    pedidos: pedidos
+  }
+  
+  const myRequest = {
+    form: myData,
+    token: myUser.token
+  };
+
+  const { data } = await axios.get(pickingProductsRoute, {
+    params: myRequest
+  });
+  
+  return data
 }
