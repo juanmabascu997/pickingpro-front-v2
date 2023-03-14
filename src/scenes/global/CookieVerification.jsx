@@ -1,8 +1,7 @@
 import React from 'react'
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import axios from "axios";
-import { toast, ToastContainer } from "react-toastify";
 import { validRoute } from '../../utils/APIRoutes';
 import { setLogin } from '../../redux/actions/actions';
 import { useDispatch } from 'react-redux';
@@ -31,13 +30,14 @@ const CookieVerification = () => {
             if (!data.status) {
                 localStorage.removeItem("userData");
                 navigate("/login");
-                setLogin(true).then((res) => {
+                setLogin(false).then((res) => {
+                    dispatch(res);
+                })
+            } else {
+                setLogin(false).then((res) => {
                     dispatch(res);
                 })
             }
-            setLogin(false).then((res) => {
-                dispatch(res);
-            })
         }
     };
 
@@ -45,12 +45,7 @@ const CookieVerification = () => {
         verifyUser();
     }, []);
 
-    const logOut = () => {
-        localStorage.removeItem("userData");
-        navigate("/login");
-    };
-
-    return <ToastContainer />;
+    return <></>;
 }
 
 export default CookieVerification

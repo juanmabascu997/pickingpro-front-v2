@@ -14,7 +14,7 @@ const TaskPicker = () => {
     <div>
       {
         isPicking ? 
-        <PickingScreen /> :
+        <PickingScreen setPickingScreen={setPickingScreen} /> :
         <FormScreen setPickingScreen={setPickingScreen}/>
       }
     </div>

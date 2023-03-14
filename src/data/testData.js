@@ -1,5 +1,5 @@
 import axios from "axios";
-import { host, packingProductsRoute, pickingProductsRoute } from "../utils/APIRoutes";
+import { dashboardData, host, packingProductsRoute, packOrderRoute, pickingProductsRoute, setIsBeingPackagedBy, setPickedProductsRoute, stopBeingPackaged } from "../utils/APIRoutes";
 
 
 export async function Login(email, password) {
@@ -42,7 +42,7 @@ export async function GetPickingProducts(pedidos) {
   const myData = {
     pedidos: pedidos
   }
-  
+
   const myRequest = {
     form: myData,
     token: myUser.token
@@ -53,4 +53,95 @@ export async function GetPickingProducts(pedidos) {
   });
   
   return data
+}
+
+export async function SetPickedProducts(pedidos, user) {
+
+
+  const myRequest = {
+      token: user,
+      products: pedidos
+  };
+
+  const { data } = await axios.get(setPickedProductsRoute, {
+      params: myRequest, 
+  });
+  
+  return data
+}
+
+
+export async function PackedHandler(orderToPack) {
+  try {
+    const myUser = await JSON.parse(localStorage.getItem("userData"));
+    let token = myUser.token;
+
+    const { data } = await axios.post(packOrderRoute, 
+      { myRequest: 
+          {
+            id: orderToPack.id, 
+            store_id: orderToPack.store_id
+          },
+        token: token
+      }
+    );
+    return true
+  } catch (error) {
+    console.log(error);
+    return false
+  }
+}
+
+export async function SetIsBeingPackagedBy(orderToPack) {
+  try {
+    const myUser = await JSON.parse(localStorage.getItem("userData"));
+    let token = myUser.token;
+
+    const res = await axios.post(setIsBeingPackagedBy, 
+      { myRequest: 
+          {
+            id: orderToPack.id, 
+          },
+        token: token
+      }
+    );
+    console.log(res);
+    return res.data
+  } catch (error) {
+    console.log(error);
+    return false
+  }
+}
+
+export async function ClearIsBeingPackagedBy(orderToPack) {
+  try {
+    const { data } = await axios.post(stopBeingPackaged, 
+      { myRequest: 
+          {
+            id: orderToPack.id, 
+          }
+      }
+    );
+    return true
+  } catch (error) {
+    console.log(error);
+    return false
+  }
+}
+
+export async function GetDashboardData() {
+  try {
+      const myUser = await JSON.parse(localStorage.getItem("userData"));
+      const { data } = await axios.get(dashboardData, {
+          params: myUser
+      });
+      if (data.err){
+        console.log(data.err);
+        return [];
+      } else {
+        return data;
+      }
+  } catch (error) {
+      console.log(error);
+  }
 }

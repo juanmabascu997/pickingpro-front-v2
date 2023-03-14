@@ -10,6 +10,10 @@ import Picking from "./scenes/picking";
 import SignInSide from "./components/SignIn";
 import './App.css'
 import CookieVerification from "./scenes/global/CookieVerification";
+import SetWorker from "./scenes/global/SetWorker";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -18,7 +22,9 @@ function App() {
   return (
 
         <ColorModeContext.Provider value={colorMode}>
+          <SetWorker />
           <CookieVerification />
+          <ToastContainer/>
           <ThemeProvider theme={theme}>
             <CssBaseline />
             <div className="app">
@@ -29,16 +35,6 @@ function App() {
                   <Route path="/" element={<Dashboard />} />
                   <Route path="/packing" element={<Packing />} />
                   <Route path="/picking" element={<Picking />} />
-                  {/* <Route path="/team" element={<Team />} />
-                  <Route path="/contacts" element={<Contacts />} />
-                  <Route path="/invoices" element={<Invoices />} />
-                  <Route path="/form" element={<Form />} />
-                  <Route path="/bar" element={<Bar />} />
-                  <Route path="/pie" element={<Pie />} />
-                  <Route path="/line" element={<Line />} />
-                  <Route path="/faq" element={<FAQ />} />
-                  <Route path="/calendar" element={<Calendar />} />
-                  <Route path="/geography" element={<Geography />} /> */}
                   <Route path="/login" element={<SignInSide />} />
                 </Routes>
               </main>

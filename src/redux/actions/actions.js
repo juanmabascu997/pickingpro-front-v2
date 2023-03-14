@@ -1,4 +1,3 @@
-import axios from "axios";
 import { GetPackingProducts, GetPickingProducts } from "../../data/testData";
 
 export const SET_LOGIN = "SET_LOGIN";
@@ -52,9 +51,22 @@ export async function setProductsToPick(cantidad){
   return async function (dispatch) {
     try {
       let picking = await GetPickingProducts(cantidad)
+      if(picking.length === 0) {
+        return dispatch({
+          type: SET_PICKING,
+          payload: []
+        });
+      }
+      let productsToPick = picking.map(e => {
+        return {
+          ...e,
+          select: false
+        }
+      })
+      
       return dispatch({
         type: SET_PICKING,
-        payload: picking,
+        payload: productsToPick,
       });
     } catch (e) {
       console.error("Error: " + e.message);

@@ -1,23 +1,46 @@
 import { Box, Button, Typography, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
-import { mockDataPicked } from "../../data/mockData";
 import Header from "../../components/Header";
 import { useEffect } from "react";
 import { setProductsToPack } from "../../redux/actions/actions";
 import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import DialogPrint from "../../components/DialogPrint";
+import { SetIsBeingPackagedBy } from "../../data/testData";
+import { toast } from "react-toastify";
+import ReportProblemIcon from '@mui/icons-material/ReportProblem';
 
 const Packing = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const dispatch = useDispatch();
   const packingProducts = useSelector(state => state.packingProducts)
+  const [open, setOpen] = useState(false);
+  const [row, setRow] = useState({});
 
-  useEffect(()=>{
+  useEffect(()=>{ 
     setProductsToPack().then((resp) => {
       dispatch(resp);
     })
   },[])
+
+
+  const handleClickOpen = (row) => {
+    SetIsBeingPackagedBy(row.row).then(res => {
+      if(res !== "El producto esta asignado a otro usuario.") {
+        setRow(row)
+        setOpen(true);
+      } else {
+        toast.error("El producto esta asignado a otro usuario.", {
+          position: "bottom-right",
+          closeOnClick: false,
+        });
+      }
+    }).catch((err)=>{
+      console.log(err);
+    })
+  };
 
 
   const columns = [
@@ -26,18 +49,18 @@ const Packing = () => {
       headerName: "ID",
     },
     {
-      field: "name",
-      headerName: "Pickeado por",
+      field: "order_asigned_to_name",
+      headerName: "Asignado a:",
       flex: 1,
       cellClassName: "name-column--cell",
     },
-    {
-      field: "payment_status",
-      headerName: "Estado de pago",
-      type: "number",
-      headerAlign: "left",
-      align: "left",
-    },
+    // {
+    //   field: "picked_by_name",
+    //   headerName: "Nombre",
+    //   type: "number",
+    //   headerAlign: "left",
+    //   align: "left",
+    // },
     {
       field: "order_picked",
       headerName: "Pickeado",
@@ -47,17 +70,28 @@ const Packing = () => {
       field: "packed",
       headerName: "Empaquetar",
       flex: 1,
-      renderCell: ({ row: { packed } }) => {
+      renderCell: (row) => {
         return (
-          <Button
-            variant="contained"
-            disabled={packed}
-            color="secondary"
-          >
-            <Typography color="black" sx={{ ml: "5px" }}>
-              Empaquetar
-            </Typography>
-          </Button>
+          <>
+            <Button
+              variant="contained"
+              disabled={row.order_asigned_to || null}
+              color="secondary"
+              onClick={(event) => handleClickOpen(row)}
+            >
+              <Typography color="black" sx={{ ml: "5px" }}>
+                Empaquetar
+              </Typography>
+            </Button>
+            <Button
+              variant="contained"
+              disabled={row.order_asigned_to}
+              color="secondary"
+              onClick={(event) => handleClickOpen(row)}
+            >
+              <ReportProblemIcon />
+            </Button>   
+          </>
         );
       },
     },
@@ -65,6 +99,7 @@ const Packing = () => {
 
   return (
     <Box m="20px">
+      <DialogPrint row={row} setOpen={setOpen} open={open} />
       <Header
         title="EMPAQUETAR"
         subtitle="Elija uno de los pickeos a empaquetar"
@@ -98,9 +133,6 @@ const Packing = () => {
           },
         }}
       >
-
-{/* <DataGrid rows={mockDataPicked} columns={columns} /> */}
-
         <DataGrid rows={packingProducts} columns={columns}/>
       </Box>
     </Box>

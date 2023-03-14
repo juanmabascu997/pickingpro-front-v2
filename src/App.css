@@ -1,3 +1,13 @@
 .hiddeClass{
     display: none !important;
 }
+
+
+.css-jtrkzm {
+    height: 100vh !important;
+}
+
+.content {
+    height: 100% !important;
+    overflow-y: scroll !important;
+}

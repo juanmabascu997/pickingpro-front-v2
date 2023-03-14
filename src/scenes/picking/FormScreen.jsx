@@ -32,8 +32,8 @@ const FormScreen = ({setPickingScreen}) => {
     event.preventDefault();
 
     setProductsToPick(formValues.pedidos).then((resp) => {
-      dispatch(resp);
-    }).finally(()=>setPickingScreen(true))
+      dispatch(resp).then(()=>setPickingScreen(true))
+    })
   };
 
   return (

@@ -28,11 +28,23 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function RecipeReviewCard({element}) {
+export default function RecipeReviewCard({element, handleChange}) {
   const [expanded, setExpanded] = React.useState(false);
+  const [elementCopy, setElement] = React.useState(element)
+  
+  React.useEffect(()=>{
+    handleChange(elementCopy)
+  }, [elementCopy])
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
+  };
+
+  const handleSelectClick = () => {
+    setElement({
+        ...elementCopy,
+        select: !elementCopy.select
+    });
   };
 
   return (
@@ -40,7 +52,7 @@ export default function RecipeReviewCard({element}) {
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            R
+            Art
           </Avatar>
         }
         action={
@@ -48,19 +60,22 @@ export default function RecipeReviewCard({element}) {
             <MoreVertIcon />
           </IconButton>
         }
-        title={element.name}
-        subheader={element.product_id}
+        title={elementCopy.name}
+        subheader={elementCopy.product_id}
       />
       <CardMedia
         component="img"
         height="194"
-        image={element.image_link}
-        alt="Paella dish"
+        image={elementCopy.image_link}
+        alt="elemento"
       />
-      
+      <CardContent>
+        Cantidad: {elementCopy.quantity}
+      </CardContent>
+
       <CardActions disableSpacing>
-        <IconButton aria-label="Marcar como pickeado">
-          <CheckBoxOutlineBlankIcon />
+        <IconButton aria-label="Marcar como pickeado" onClick={handleSelectClick}>
+          {elementCopy.select ? <><Typography paragraph style={{"display": "inline-flex"}}><CheckBoxIcon /> Pickeado</Typography></>  : <><Typography paragraph  style={{"display": "inline-flex"}}><CheckBoxOutlineBlankIcon /> No pickeado </Typography></> }
         </IconButton>
         {/* <ExpandMore
           expand={expanded}

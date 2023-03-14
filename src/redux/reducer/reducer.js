@@ -9,8 +9,11 @@ import {
 const initialState = {
     isLogin: false,
     user: {},
+    
     packingProducts: [],
+
     pickingProducts: [],
+    pickingOrders: []
 }
 
 
@@ -28,9 +31,25 @@ export default function rootReducer(state = initialState, payload) {
                 isLogin: false
             }
         case SET_PACKING:
-            return {
-                ...state,
-                packingProducts: payload.payload,
+            if(payload.payload !== "No product to pack"){
+                let res = payload.payload.map((e)=>{
+                    let totalProducts = e.products.map((e)=>{
+                        return parseInt(e.quantity, 10)
+                    })
+                    return {
+                        ...e,
+                        total_quantity: totalProducts.reduce((a, b) => a + b, 0)
+                    }
+                })
+                return {
+                    ...state,
+                    packingProducts: res,
+                }
+            } else {
+                return {
+                    ...state,
+                    packingProducts: [],
+                }
             }
         case SET_PICKING:
             return {
