@@ -13,6 +13,7 @@ import CookieVerification from "./scenes/global/CookieVerification";
 import SetWorker from "./scenes/global/SetWorker";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import Problem from "./scenes/problem";
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
                   <Route path="/packing" element={<Packing />} />
                   <Route path="/picking" element={<Picking />} />
                   <Route path="/login" element={<SignInSide />} />
+                  <Route path="/problem" element={<Problem />} />
                 </Routes>
               </main>
             </div>

@@ -11,3 +11,17 @@
     height: 100% !important;
     overflow-y: scroll !important;
 }
+
+.textAreaStyle{
+    height: 100%;
+    width: 100%;
+    font-family: Source Sans ProRoboto,sans-serif;
+    font-weight: 400;
+    font-size: 0.8571428571428571rem;
+    line-height: 1.5;
+    padding: 5px;
+}
+
+.textAreaStyle:focus-visible {
+    outline: none !important;
+}

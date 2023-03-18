@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { setProductsToPick } from "../../redux/actions/actions";
 import { useDispatch } from "react-redux";
+import { toast } from 'react-toastify';
 
 const defaultValues = {
   pedidos: 20
@@ -32,7 +33,15 @@ const FormScreen = ({setPickingScreen}) => {
     event.preventDefault();
 
     setProductsToPick(formValues.pedidos).then((resp) => {
-      dispatch(resp).then(()=>setPickingScreen(true))
+      dispatch(resp).then((res)=>{
+        if(res.payload.length > 0) setPickingScreen(true)
+        else {
+          toast.error("No hay productos para pickear", {
+            position: "bottom-right",
+            closeOnClick: false,
+          });
+        }
+      })
     })
   };
 

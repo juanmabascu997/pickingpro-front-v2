@@ -43,7 +43,14 @@ export default function PickingScreen({setPickingScreen}) {
                     }) : null
                 }
         </Grid>
-        <Button onClick={handleSubmit} >MARCAR</Button>
+        <Button 
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }} 
+            onClick={handleSubmit} 
+        >
+            MARCAR
+        </Button>
     </div>
   )
 }

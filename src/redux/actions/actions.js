@@ -1,11 +1,10 @@
-import { GetPackingProducts, GetPickingProducts } from "../../data/testData";
+import { GetPackingProducts, GetPickingProducts, GetOrdersWithProblem } from "../../data/testData";
 
 export const SET_LOGIN = "SET_LOGIN";
 export const SET_USER = "SET_USER";
 export const SET_PACKING = 'SET_PACKING';
 export const SET_PICKING = 'SET_PICKING';
-
-
+export const SET_PROBLEMS = 'SET_PROBLEMS';
 
 export async function setLogin(bool){
   return async function (dispatch) {
@@ -67,6 +66,21 @@ export async function setProductsToPick(cantidad){
       return dispatch({
         type: SET_PICKING,
         payload: productsToPick,
+      });
+    } catch (e) {
+      console.error("Error: " + e.message);
+    }
+  };
+}
+
+export async function getOrdersProblem(){
+  return async function (dispatch) {
+    try {
+      let problem = await GetOrdersWithProblem()
+
+      return dispatch({
+        type: SET_PROBLEMS,
+        payload: problem,
       });
     } catch (e) {
       console.error("Error: " + e.message);

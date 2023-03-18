@@ -7,7 +7,7 @@ const Picking = () => {
   return (
     <Box m="20px">
       <Header title="PICKEAR" subtitle="Seleccioná qué te gustaría pickear" />
-      <Box sx={{ boxShadow: 3, p: 3 }}>
+      <Box sx={{ p: 3 }}>
         <TaskPicker />
       </Box>
     </Box>

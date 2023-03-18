@@ -17,7 +17,7 @@ import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutl
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
-import { Inventory, SettingsBackupRestore } from "@mui/icons-material";
+import { Inventory, ReportProblem, SettingsBackupRestore } from "@mui/icons-material";
 import { useSelector } from "react-redux";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
@@ -102,15 +102,6 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-
-            {/* <Typography
-              variant="h4"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-              Tareas
-            </Typography> */}
-
             <Item
               title="Empaquetar ordenes"
               to="/packing"
@@ -125,10 +116,18 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-            <Item
+            {/* <Item
               title="Revisar devoluciones"
               to="/returns"
               icon={<SettingsBackupRestore />}
+              selected={selected}
+              setSelected={setSelected}
+            /> */}
+
+            <Item
+              title="Revisar"
+              to="/problem"
+              icon={<ReportProblem />}
               selected={selected}
               setSelected={setSelected}
             />

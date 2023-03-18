@@ -2,7 +2,8 @@ import {
     SET_LOGIN, 
     SET_USER,
     SET_PACKING,
-    SET_PICKING
+    SET_PICKING,
+    SET_PROBLEMS
 } from "../actions/actions";
 
 
@@ -13,7 +14,10 @@ const initialState = {
     packingProducts: [],
 
     pickingProducts: [],
-    pickingOrders: []
+    pickingOrders: [],
+    
+    problemOrders: []
+
 }
 
 
@@ -55,6 +59,11 @@ export default function rootReducer(state = initialState, payload) {
             return {
                 ...state,
                 pickingProducts: payload.payload,
+            }
+        case SET_PROBLEMS:
+            return {
+                ...state,
+                problemOrders: payload.payload
             }
         default:
         return { ...state };

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { dashboardData, host, packingProductsRoute, packOrderRoute, pickingProductsRoute, setIsBeingPackagedBy, setPickedProductsRoute, stopBeingPackaged } from "../utils/APIRoutes";
+import { getProblemsRoute, dashboardData, host, packingProductsRoute, packOrderRoute, pickingProductsRoute, reportProblemRoute, setIsBeingPackagedBy, setPickedProductsRoute, stopBeingPackaged, solveProblemRoute } from "../utils/APIRoutes";
 
 
 export async function Login(email, password) {
@@ -105,7 +105,6 @@ export async function SetIsBeingPackagedBy(orderToPack) {
         token: token
       }
     );
-    console.log(res);
     return res.data
   } catch (error) {
     console.log(error);
@@ -141,6 +140,45 @@ export async function GetDashboardData() {
       } else {
         return data;
       }
+  } catch (error) {
+      console.log(error);
+  }
+}
+
+
+export async function ReportProblem(myProblem) {
+  try {
+      const myUser = await JSON.parse(localStorage.getItem("userData"));
+
+      myProblem.token = myUser.token
+
+      const { data } = await axios.post(reportProblemRoute, {
+        ...myProblem
+      });
+      
+      return true;
+  } catch (error) {
+      console.log(error);
+  }
+}
+
+
+
+export async function GetOrdersWithProblem() {
+  try {
+      const { data } = await axios.get(getProblemsRoute);
+      return data;
+  } catch (error) {
+      console.log(error);
+  }
+}
+
+export async function SolveProblem(id) {
+  try {
+      const { data } = await axios.post(solveProblemRoute, {
+        ...id
+      });
+      return data;
   } catch (error) {
       console.log(error);
   }

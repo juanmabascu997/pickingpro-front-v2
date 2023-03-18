@@ -3,23 +3,23 @@ import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
 import { useEffect } from "react";
-import { setProductsToPack } from "../../redux/actions/actions";
+import { getOrdersProblem, setProductsToPack } from "../../redux/actions/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import DialogPrint from "../../components/DialogPrint";
-import ScrollDialog from "./DialogPrintV2";
-import ScrollDialogProblem from "./DialogProblem";
+import ScrollDialogSolutionProblem from "./DialogSolutionProblem";
 
-const Packing = () => {
+
+const Problem = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const dispatch = useDispatch();
-  const packingProducts = useSelector(state => state.packingProducts)
+  const packingProducts = useSelector(state => state.problemOrders)
   const [open, setOpen] = useState(false);
   const [row, setRow] = useState({});
 
   useEffect(()=>{ 
-    setProductsToPack().then((resp) => {
+    getOrdersProblem().then((resp) => {
       dispatch(resp);
     })
   },[])
@@ -30,25 +30,31 @@ const Packing = () => {
       headerName: "ID",
     },
     {
-      field: "order_asigned_to_name",
-      headerName: "Asignado a:",
+      field: "order_problem_by",
+      headerName: "Reportado por ID:",
       flex: 1,
       cellClassName: "name-column--cell",
     },
     {
-      field: "order_picked",
-      headerName: "Pickeado",
-      flex: 1,
+        field: "order_asigned_to_name",
+        headerName: "Asignado a:",
+        flex: 1,
+        cellClassName: "name-column--cell",
     },
     {
-      field: "packed",
-      headerName: "Empaquetar",
+        field: "order_problem",
+        headerName: "Motivo:",
+        flex: 1,
+        cellClassName: "name-column--cell",
+    },
+    {
+      field: "solucionar",
+      headerName: "Solucionar",
       flex: 1,
       renderCell: (row) => {
         return (
           <>
-            <ScrollDialog row={row} />
-            <ScrollDialogProblem row={row} />
+            <ScrollDialogSolutionProblem row={row}/>
           </>
         );
       },
@@ -59,8 +65,8 @@ const Packing = () => {
     <Box m="20px">
       <DialogPrint row={row} setOpen={setOpen} open={open} />
       <Header
-        title="EMPAQUETAR"
-        subtitle="Elija uno de los pickeos a empaquetar"
+        title="Problemas"
+        subtitle="Elija la orden a revisar."
       />
       <Box
         m="40px 0 0 0"
@@ -97,4 +103,4 @@ const Packing = () => {
   );
 };
 
-export default Packing;
+export default Problem;
