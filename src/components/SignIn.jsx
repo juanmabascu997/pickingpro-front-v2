@@ -16,6 +16,7 @@ import Register from './Register';
 import { setUser } from '../redux/actions/actions';
 import { useDispatch } from 'react-redux';
 import CookieVerification from '../scenes/global/CookieVerification';
+import { toast } from 'react-toastify';
 
 
 function Copyright(props) {
@@ -43,12 +44,26 @@ export default function SignInSide() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+
     Login(data.get('email'), data.get('password')).then((res)=>{
       setUser(res).then((resp) => {
         dispatch(resp);
+      }).then((resp2) => {
+        if(resp2.status) {
+          toast.success("Bienvenido!", {
+            position: "bottom-right",
+            closeOnClick: false,
+          });
+          localStorage.setItem('userData', JSON.stringify(res));
+          navigate("/");
+        } else {
+          toast.error("Usuario y/o contraseña incorrecta", {
+            position: "bottom-right",
+            closeOnClick: false,
+          });
+        }
       })
-      localStorage.setItem('userData', JSON.stringify(res));
-      navigate("/");
+      
     })
   };
 
