@@ -49,7 +49,7 @@ export default function SignInSide() {
       setUser(res).then((resp) => {
         dispatch(resp);
       }).then((resp2) => {
-        if(resp2.status) {
+        if(resp2.created) {
           toast.success("Bienvenido!", {
             position: "bottom-right",
             closeOnClick: false,
