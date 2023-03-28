@@ -49,18 +49,18 @@ export default function SignInSide() {
       setUser(res).then((resp) => {
         dispatch(resp);
       }).then((resp2) => {
-        if(resp2.created) {
+        if (resp2.errors) {
+          toast.error("Usuario y/o contraseña incorrecta", {
+            position: "bottom-right",
+            closeOnClick: false,
+          });
+        } else {
           toast.success("Bienvenido!", {
             position: "bottom-right",
             closeOnClick: false,
           });
           localStorage.setItem('userData', JSON.stringify(res));
           navigate("/");
-        } else {
-          toast.error("Usuario y/o contraseña incorrecta", {
-            position: "bottom-right",
-            closeOnClick: false,
-          });
         }
       })
       
