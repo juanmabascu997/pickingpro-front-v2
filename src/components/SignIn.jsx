@@ -48,22 +48,21 @@ export default function SignInSide() {
     Login(data.get('email'), data.get('password')).then((res)=>{
       setUser(res).then((resp) => {
         dispatch(resp);
-      }).then((resp2) => {
-        if (resp2.errors) {
-          toast.error("Usuario y/o contraseña incorrecta", {
-            position: "bottom-right",
-            closeOnClick: false,
-          });
-        } else {
-          toast.success("Bienvenido!", {
-            position: "bottom-right",
-            closeOnClick: false,
-          });
-          localStorage.setItem('userData', JSON.stringify(res));
-          navigate("/");
-        }
       })
-      
+
+      if (res.errors) {
+        toast.error("Usuario y/o contraseña incorrecta", {
+          position: "bottom-right",
+          closeOnClick: false,
+        });
+      } else {
+        toast.success("Bienvenido!", {
+          position: "bottom-right",
+          closeOnClick: false,
+        });
+        localStorage.setItem('userData', JSON.stringify(res));
+        navigate("/");
+      }
     })
   };
 
