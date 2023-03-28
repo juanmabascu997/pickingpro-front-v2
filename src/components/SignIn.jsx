@@ -46,16 +46,15 @@ export default function SignInSide() {
     const data = new FormData(event.currentTarget);
 
     Login(data.get('email'), data.get('password')).then((res)=>{
-      setUser(res).then((resp) => {
-        dispatch(resp);
-      })
-
       if (res.errors) {
         toast.error("Usuario y/o contraseña incorrecta", {
           position: "bottom-right",
           closeOnClick: false,
         });
       } else {
+        setUser(res).then((resp) => {
+          dispatch(resp);
+        })  
         toast.success("Bienvenido!", {
           position: "bottom-right",
           closeOnClick: false,
