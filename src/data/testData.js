@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getProblemsRoute, dashboardData, host, packingProductsRoute, packOrderRoute, pickingProductsRoute, reportProblemRoute, setIsBeingPackagedBy, setPickedProductsRoute, stopBeingPackaged, solveProblemRoute } from "../utils/APIRoutes";
+import { getProblemsRoute, dashboardData, host, packingProductsRoute, packOrderRoute, pickingProductsRoute, reportProblemRoute, setIsBeingPackagedBy, setPickedProductsRoute, stopBeingPackaged, solveProblemRoute, storeInfo } from "../utils/APIRoutes";
 
 
 export async function Login(email, password) {
@@ -183,3 +183,18 @@ export async function SolveProblem(id) {
       console.log(error);
   }
 }
+
+export async function GetStoreInfo(id) {
+  try {
+      const { data } = await axios.get(storeInfo,
+        {
+          params: {
+            store_id: id
+          }
+        })
+      return data.nombre;
+  } catch (error) {
+      console.log(error);
+  }
+}
+

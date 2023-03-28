@@ -118,7 +118,7 @@ export default function ScrollDialogSolutionProblem({ row }) {
         </DialogContent>
         <DialogActions>
             <Button variant="contained" color="secondary" onClick={handleSubmit}>
-                Aceptar
+              Solucionar
             </Button>
             <Button color="primary" onClick={handleClose}>
                 Cancelar

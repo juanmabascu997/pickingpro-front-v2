@@ -25,7 +25,7 @@ export default function Step2({ carrito, handleNext, handleBack }) {
     //Seteo datos de la tarea
     setTaskData(
         {
-            envio: "same-day"
+            envio: carrito.shipping_option.includes('Bluemail') ? 'bluemail' : 'same-day'
         }
     );
   }
@@ -133,6 +133,7 @@ export default function Step2({ carrito, handleNext, handleBack }) {
                     endIcon={<ReceiptIcon />}
                     color="success"
                     size="large"
+                    disabled={!loading}
                     onClick={onClickLabelButton}
                     >
                     Imprimir
@@ -161,7 +162,7 @@ export default function Step2({ carrito, handleNext, handleBack }) {
           }
         </Box>
         <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-          <Button color="inherit" onClick={handleBack} sx={{ mr: 1 }}>
+          <Button color="inherit" onClick={handleBack} sx={{ mr: 1 }} disabled={!loading}>
             Back
           </Button>
           <Box sx={{ flex: "1 1 auto" }} />

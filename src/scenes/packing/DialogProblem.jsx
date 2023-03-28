@@ -50,6 +50,10 @@ export default function ScrollDialogProblem({ row }) {
 
   const handleSubmit = async () => {
     await ReportProblem({id:carrito.id, value: problem})
+    toast.success("El problema fue reportado exitosamente.", {
+      position: "bottom-right",
+      closeOnClick: false,
+    });
     setOpen(false);
   };
 
@@ -113,7 +117,7 @@ export default function ScrollDialogProblem({ row }) {
         </DialogContent>
         <DialogActions>
             <Button variant="contained" color="secondary" onClick={handleSubmit}>
-                Aceptar
+                Reportar
             </Button>
             <Button color="primary" onClick={handleClose}>
                 Cancelar

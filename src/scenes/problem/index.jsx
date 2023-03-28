@@ -65,7 +65,7 @@ const Problem = () => {
     <Box m="20px">
       <DialogPrint row={row} setOpen={setOpen} open={open} />
       <Header
-        title="Problemas"
+        title="PROBLEMAS"
         subtitle="Elija la orden a revisar."
       />
       <Box

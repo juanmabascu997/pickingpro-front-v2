@@ -19,6 +19,10 @@ export default function RecipeReviewCard({element, handleChange}) {
     handleChange(elementCopy)
   }, [elementCopy])
 
+  // React.useEffect(()=>{
+  //   console.log(elementCopy);
+  // }, [elementCopy])
+
   const handleSelectClick = () => {
     setElement({
         ...elementCopy,

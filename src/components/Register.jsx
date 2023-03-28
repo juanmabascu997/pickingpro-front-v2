@@ -17,12 +17,14 @@ import {
   import { registerRoute } from "../utils/APIRoutes";
   import Paper from '@mui/material/Paper';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { useEffect } from "react";
+import { setLogin } from '../redux/actions/actions';
+import { useDispatch } from 'react-redux';
   
   function Register({setRegister}) {
-    
+    const dispatch = useDispatch();
     const navigate = useNavigate();
-  
+    // const [ disabled, setDisabled ] = useState(true)
+
     const [values, setValues] = useState({
       name: "",
       email: "",
@@ -55,6 +57,9 @@ import { useEffect } from "react";
             //Guardamos en el local storage datos de la cuenta
             localStorage.setItem("userData", JSON.stringify(data));
             navigate("/");
+            setLogin(false).then((res) => {
+              dispatch(res);
+            })
           }
         }
       } catch (ex) {
@@ -78,7 +83,7 @@ import { useEffect } from "react";
             <Typography component="h1" variant="h5">
                 Registrarte
             </Typography>
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+            <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
                 
                 <TextField
                     margin="normal"
@@ -130,6 +135,7 @@ import { useEffect } from "react";
                   fullWidth
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
+                  // disabled={disabled}
                 >
                     Registrarse
                 </Button>

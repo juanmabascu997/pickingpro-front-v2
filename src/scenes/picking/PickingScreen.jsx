@@ -11,6 +11,7 @@ import { useState } from 'react'
 export default function PickingScreen({setPickingScreen}) {
     let pickingProducts = useSelector(state => state.pickingProducts)
     const [open, setOpen] = useState(false);
+    const [disabled, setDisabled] = useState(true);
 
     const handleChange = (element) => {
         pickingProducts = pickingProducts.map((e) => {
@@ -20,9 +21,22 @@ export default function PickingScreen({setPickingScreen}) {
                 return e
             }
         })
+        var flag = false;
+        if(pickingProducts.length > 0){
+            for(let i = 0; i < pickingProducts.length ; i++) {
+                if(pickingProducts[i].select === false){
+                    flag = true;
+                }
+            }
+            if(!flag) {
+                setDisabled(false)
+            } else {
+                setDisabled(true)
+            }
+        }
     }
 
-    const handleSubmit = async () => {
+    const handleSubmit = async () => {     
         setOpen(true);
     }
 
@@ -48,6 +62,7 @@ export default function PickingScreen({setPickingScreen}) {
             variant="contained"
             sx={{ mt: 3, mb: 2 }} 
             onClick={handleSubmit} 
+            disabled={disabled}
         >
             MARCAR
         </Button>

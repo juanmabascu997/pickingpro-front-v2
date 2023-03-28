@@ -1,73 +1,65 @@
-import { Box, Button, Typography, useTheme } from "@mui/material";
+import { Box, Button, ButtonBase, Typography, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
 import { useEffect } from "react";
-import { setProductsToPack } from "../../redux/actions/actions";
-import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
-import DialogPrint from "../../components/DialogPrint";
-import ScrollDialog from "./DialogPrintV2";
-import ScrollDialogProblem from "./DialogProblem";
+import { storeRoute } from "../../utils/APIRoutes";
+import axios from "axios";
+import ScrollDialogSettings from "./DialogSettings";
 
-const Packing = () => {
+const Settings = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const dispatch = useDispatch();
-  const packingProducts = useSelector(state => state.packingProducts)
+  const [connectedStores, setConnectedStores] = useState([]);
   const [open, setOpen] = useState(false);
-  const [row, setRow] = useState({});
 
-  useEffect(()=>{ 
-    setProductsToPack().then((resp) => {
-      dispatch(resp);
-    })
-  },[])
+  const getStores = async () => {
+    const { data } = await axios.get(storeRoute);
+    if (data) {
+      let res = data.map((e, index) => {
+        return {
+          ...e,
+          id: index,
+        };
+      });
+      setConnectedStores(res);
+    }
+  };
+
+  useEffect(() => {
+    getStores();
+  }, []);
 
   const columns = [
     {
-      field: "id",
+      field: "_id",
       headerName: "ID",
-    },
-    {
-      field: "order_asigned_to_name",
-      headerName: "Asignado a:",
       flex: 1,
       cellClassName: "name-column--cell",
     },
     {
-      field: "shipping_option",
-      headerName: "Envio:",
+      field: "access_token",
+      headerName: "Access token:",
       flex: 1,
       cellClassName: "name-column--cell",
     },
     {
-      field: "store_name",
-      headerName: "Tienda:",
+      field: "nombre",
+      headerName: "Tienda",
       flex: 1,
-    },
-    {
-      field: "packed",
-      headerName: "Empaquetar",
-      flex: 1,
-      renderCell: (row) => {
-        return (
-          <>
-            <ScrollDialog row={row} />
-            <ScrollDialogProblem row={row} />
-          </>
-        );
-      },
     },
   ];
 
   return (
     <Box m="20px">
-      <DialogPrint row={row} setOpen={setOpen} open={open} />
-      <Header
-        title="EMPAQUETAR"
-        subtitle="Elija uno de los pickeos a empaquetar"
-      />
+      <Box sx={{ display: "flex", flexDirection: 'row', justifyContent:'space-between'}}>
+        <Header
+          title="CONFIGURACIONES"
+          subtitle="Ver conecciones. Conectar nueva tienda."
+        />
+        <ScrollDialogSettings setOpen={setOpen} open={open} />
+      </Box>
       <Box
         m="40px 0 0 0"
         height="75vh"
@@ -97,10 +89,10 @@ const Packing = () => {
           },
         }}
       >
-        <DataGrid rows={packingProducts} columns={columns}/>
+        <DataGrid rows={connectedStores} columns={columns} />
       </Box>
     </Box>
   );
 };
 
-export default Packing;
+export default Settings;

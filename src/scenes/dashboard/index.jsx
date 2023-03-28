@@ -14,37 +14,23 @@ import StatBox from "../../components/StatBox";
 import ProgressCircle from "../../components/ProgressCircle";
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import { GetDashboardData } from '../../data/testData'
+import { useSelector } from 'react-redux';
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [cardData, setCardData] = React.useState({});
-
+  const packingProducts = useSelector(state => state.packingProducts)
   
   React.useEffect(() => {
     GetDashboardData().then(res => setCardData(res))
-  }, [])
+  }, [packingProducts])
 
   return (
     <Box m="20px">
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header title="DASHBOARD" subtitle="Bienvenido a tu dashboard" />
-
-        {/* <Box>
-          <Button
-            sx={{
-              backgroundColor: colors.blueAccent[700],
-              color: colors.grey[100],
-              fontSize: "14px",
-              fontWeight: "bold",
-              padding: "10px 20px",
-            }}
-          >
-            <DownloadOutlinedIcon sx={{ mr: "10px" }} />
-            Download Reports
-          </Button>
-        </Box> */}
       </Box>
 
       {/* GRID & CHARTS */}

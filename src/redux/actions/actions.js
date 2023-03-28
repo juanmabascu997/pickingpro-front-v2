@@ -1,4 +1,4 @@
-import { GetPackingProducts, GetPickingProducts, GetOrdersWithProblem } from "../../data/testData";
+import { GetPackingProducts, GetPickingProducts, GetOrdersWithProblem, GetStoreInfo } from "../../data/testData";
 
 export const SET_LOGIN = "SET_LOGIN";
 export const SET_USER = "SET_USER";
@@ -36,6 +36,7 @@ export async function setProductsToPack(){
   return async function (dispatch) {
     try {
       let packing = await GetPackingProducts()
+  
       return dispatch({
         type: SET_PACKING,
         payload: packing,

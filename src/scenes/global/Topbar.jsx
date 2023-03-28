@@ -36,10 +36,10 @@ const Topbar = () => {
             <LightModeOutlinedIcon />
           )}
         </IconButton>
-        <IconButton>
-          <NotificationsOutlinedIcon />
-        </IconButton>
-        <IconButton>
+        <IconButton onClick={() => {
+            navigate("/settings")
+          }} 
+        >
           <SettingsOutlinedIcon />
         </IconButton>
 

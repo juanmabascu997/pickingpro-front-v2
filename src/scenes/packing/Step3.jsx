@@ -1,7 +1,20 @@
 import { Box, Button, Typography } from '@mui/material'
-import React from 'react'
+import axios from 'axios';
+import React, { useState } from 'react'
+import { useSelector } from 'react-redux';
+import { packOrderRoute } from '../../utils/APIRoutes';
 
 export default function Step2({carrito, handleNext, handleBack}) {
+    const [loading, setLoading] = useState(false)
+    const userInfo = useSelector(state => state.user)
+
+    async function middelHandler () {   
+        setLoading(true)
+        const { data } = await axios.post(packOrderRoute, { id: carrito.id, store_id: carrito.store_id, token: userInfo.user});
+        setLoading(false)
+        handleNext()
+    }
+
   return (
     <Box key="3" sx={{ display: "flex", flexDirection: 'column', alignItems: 'center', justifyContent:'space-between', height: "100%"}}>
         <Box sx={{ display: "flex", flexDirection: 'column', alignItems: 'center', justifyContent:'none'}}>
@@ -18,8 +31,8 @@ export default function Step2({carrito, handleNext, handleBack}) {
                 Back
             </Button>
             <Box sx={{ flex: '1 1 auto' }} />
-            <Button onClick={handleNext}>
-                Finish
+            <Button onClick={()=>middelHandler} disabled={loading}>
+                Finalizar
             </Button>
         </Box>
     </Box>

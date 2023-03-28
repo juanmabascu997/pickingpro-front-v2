@@ -1,34 +1,52 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import { SetPickedProducts } from '../data/testData';
-import { useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
+import * as React from "react";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import { SetPickedProducts } from "../data/testData";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { Avatar, Box, Chip, Stack, Typography } from "@mui/material";
+import { styled } from "@mui/material/styles";
+import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
 
-export default function DialogPicking({ setPickingScreen, pickingProducts, setOpen, open}) {
-    let user = useSelector(state => state.user)
-    
+export default function DialogPicking({
+  setPickingScreen,
+  pickingProducts,
+  setOpen,
+  open,
+}) {
+  let user = useSelector((state) => state.user);
+
+  const CustomWidthTooltip = styled(({ className, ...props }) => (
+    <Tooltip {...props} classes={{ popper: className }} />
+  ))({
+    [`& .${tooltipClasses.tooltip}`]: {
+      maxWidth: 500,
+    },
+  });
 
   const handleClose = async () => {
     setOpen(false);
   };
 
-  const pickedHandler = async ()=> {
-    const data = await SetPickedProducts(pickingProducts, user.user)
-    if(data) {
-        toast.success("Productos pickeados con exito", {
-            position: "bottom-right",
-            closeOnClick: false,
-        });
-        setPickingScreen(false)
+  const pickedHandler = async () => {
+    const data = await SetPickedProducts(pickingProducts, user.user);
+    if (data) {
+      toast.success("Productos pickeados con exito", {
+        position: "bottom-right",
+        closeOnClick: false,
+      });
+      setPickingScreen(false);
     }
     setOpen(false);
-  }
+  };
 
+  React.useEffect(() => {
+    console.log(pickingProducts);
+  }, []);
 
   return (
     <div>
@@ -38,12 +56,50 @@ export default function DialogPicking({ setPickingScreen, pickingProducts, setOp
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">
-          {"Confirmar"}
-        </DialogTitle>
+        <DialogTitle id="alert-dialog-title">{"Confirmar"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Si solicita continuar, van a darse por pickeados los siguientes articulos:
+            <Box>
+              <Typography sx={{ mb: 1 }}>
+                Si solicita continuar, van a darse por pickeados los siguientes
+                articulos:
+              </Typography>
+              <Typography sx={{ mb: 1 }}>
+                <i>Productos que incluye la compra:</i>
+              </Typography>
+              <Box sx={{ display: "flex", flexDirection: "row", pt: 1, pb: 1 }}>
+                {pickingProducts ? (
+                  pickingProducts.map((info, index) => {
+                    return (<>
+                      <Stack direction="row" spacing={1} key={index}>
+                        <CustomWidthTooltip
+                          title={
+                            info.name +
+                            ", SKU: " +
+                            info.sku +
+                            ", Cantidad: " +
+                            info.quantity +
+                            ", Variante: " +
+                            info.variant_id
+                          }
+                        >
+                          <Chip
+                            avatar={
+                              <Avatar alt={info.name} src={info.image_link} />
+                            }
+                            label={info.name}
+                            variant="outlined"
+                          />
+                        </CustomWidthTooltip>
+                      </Stack>
+                    </>
+                    );
+                  })
+                ) : (
+                  <></>
+                )}
+              </Box>
+            </Box>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
