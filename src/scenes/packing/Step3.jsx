@@ -3,14 +3,22 @@ import axios from 'axios';
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux';
 import { packOrderRoute } from '../../utils/APIRoutes';
+import { setProductsToPack } from '../../redux/actions/actions';
+import { useDispatch } from 'react-redux';
 
 export default function Step2({carrito, handleNext, handleBack}) {
     const [loading, setLoading] = useState(false)
     const userInfo = useSelector(state => state.user)
+    const dispatch = useDispatch();
 
     async function middelHandler () {   
         setLoading(true)
         const { data } = await axios.post(packOrderRoute, { id: carrito.id, store_id: carrito.store_id, token: userInfo.user});
+        if(data) {
+            setProductsToPack().then((resp) => {
+              dispatch(resp);
+            })
+        }
         setLoading(false)
         handleNext()
     }
@@ -31,7 +39,7 @@ export default function Step2({carrito, handleNext, handleBack}) {
                 Back
             </Button>
             <Box sx={{ flex: '1 1 auto' }} />
-            <Button onClick={()=>middelHandler} disabled={loading}>
+            <Button onClick={()=>{middelHandler()}} disabled={loading}>
                 Finalizar
             </Button>
         </Box>

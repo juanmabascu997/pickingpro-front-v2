@@ -5,9 +5,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { ClearIsBeingPackagedBy, PackedHandler } from '../data/testData';
-import { setProductsToPack } from '../redux/actions/actions';
-import { useDispatch } from 'react-redux';
+import { ClearIsBeingPackagedBy } from '../data/testData';
 import { generateLabelInfo } from '../utils/LabelGenerator';
 import { useReactToPrint } from 'react-to-print'
 import { useRef } from 'react';
@@ -15,7 +13,6 @@ import { useState } from 'react';
 
 
 export default function DialogPrint({row, setOpen, open}) {
-    const dispatch = useDispatch();
     const componentRef = useRef(null);
     const [labelInfo, setLabelInfo] = useState();
 
@@ -61,13 +58,6 @@ export default function DialogPrint({row, setOpen, open}) {
 
   const packedHandler = async ()=> {
     let resp = await onClickLabelButton()
-    const data = await PackedHandler(row.row)
-    if(data) {
-      setProductsToPack().then((resp) => {
-        dispatch(resp);
-      })
-    }
-    setOpen(false);
   }
 
 
