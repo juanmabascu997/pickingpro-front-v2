@@ -57,10 +57,18 @@ export async function GetPickingProducts(pedidos) {
 
 export async function SetPickedProducts(pedidos, user) {
 
+  let ids = []
+
+  pedidos.map(prod => {
+    if(prod.id.length) {
+      ids.push(...prod.id)
+    }
+    return prod
+  })
 
   const myRequest = {
       token: user,
-      products: pedidos
+      products: ids
   };
 
   const { data } = await axios.get(setPickedProductsRoute, {
