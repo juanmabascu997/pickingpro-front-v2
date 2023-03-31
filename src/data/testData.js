@@ -57,11 +57,11 @@ export async function GetPickingProducts(pedidos) {
 
 export async function SetPickedProducts(pedidos, user) {
 
-  let ids = []
+  let ids = new Set()
 
   pedidos.map(prod => {
     if(prod.id.length) {
-      ids.push(...prod.id)
+      ids.add(...prod.id)
     }
     return prod
   })
