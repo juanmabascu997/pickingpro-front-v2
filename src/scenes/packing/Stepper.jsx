@@ -7,31 +7,21 @@ import Typography from '@mui/material/Typography';
 import Step1 from './Step1';
 import Step2 from './Step2';
 import Step3 from './Step3';
-import { setProductsToPack } from '../../redux/actions/actions';
-import { PackedHandler } from '../../data/testData';
 import { toast } from 'react-toastify';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
 
 const steps = ['Revisar productos', 'Confirmar impresión', 'Finalizar'];
 
 export default function HorizontalLinearStepper({carrito, handleClose}) {
   const [activeStep, setActiveStep] = useState(0);
-  const dispatch = useDispatch();
 
   const handleNext = async () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
     if(activeStep === steps.length - 1) {
-      const data = await PackedHandler(carrito)
-      if(data) {
-        setProductsToPack().then((resp) => {
-          dispatch(resp);
-        })
-        toast.success("Gestion realizada con exitó! ✅", {
-          position: "bottom-right",
-          closeOnClick: false,
-        });
-      }
+      toast.success("Gestion realizada con exitó! ✅", {
+        position: "bottom-right",
+        closeOnClick: false,
+      });
       handleClose()
     }
   };
