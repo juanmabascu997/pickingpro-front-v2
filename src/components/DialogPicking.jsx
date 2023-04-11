@@ -44,10 +44,6 @@ export default function DialogPicking({
     setOpen(false);
   };
 
-  React.useEffect(() => {
-    console.log(pickingProducts);
-  }, []);
-
   return (
     <div>
       <Dialog

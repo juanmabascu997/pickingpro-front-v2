@@ -65,7 +65,8 @@ export async function SetPickedProducts(pedidos, user) {
     }
     return prod
   })
-
+  ids = Array.from(ids)
+  
   const myRequest = {
       token: user,
       products: ids
