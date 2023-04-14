@@ -5,6 +5,8 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { DialogActions, Typography } from "@mui/material";
 import { Box } from "@mui/system";
+import { DeleteStoreWebhoks } from "../../data/testData";
+import { toast } from "react-toastify";
 
 export default function DeleteDialog({row}) {
   const [open, setOpen] = React.useState(false);
@@ -18,7 +20,19 @@ export default function DeleteDialog({row}) {
   };
 
   const handleSubmit = async () => {
-    window.open(`https://www.tiendanube.com/webhooks/${row.user_id}`, '_blank', 'noreferrer')
+    DeleteStoreWebhoks(row).then((res)=>{
+      if(res){
+        toast.success("Se elimino correctamente la conexión.", {
+          position: "bottom-right",
+          closeOnClick: false,
+        });
+      } else {
+        toast.error("Error en proceso de eliminar conexión.", {
+          position: "bottom-right",
+          closeOnClick: false,
+        });
+      }
+    })
     setOpen(false);
   };
 

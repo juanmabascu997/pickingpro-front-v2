@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getProblemsRoute, dashboardData, host, packingProductsRoute, packOrderRoute, pickingProductsRoute, reportProblemRoute, setIsBeingPackagedBy, setPickedProductsRoute, stopBeingPackaged, solveProblemRoute, storeInfo } from "../utils/APIRoutes";
+import { getProblemsRoute, dashboardData, host, packingProductsRoute, packOrderRoute, pickingProductsRoute, reportProblemRoute, setIsBeingPackagedBy, setPickedProductsRoute, stopBeingPackaged, solveProblemRoute, storeInfo, deleteStoreRoute } from "../utils/APIRoutes";
 
 
 export async function Login(email, password) {
@@ -206,3 +206,17 @@ export async function GetStoreInfo(id) {
   }
 }
 
+export async function DeleteStoreWebhoks(store) {
+  try {
+      const { data } = await axios.delete(deleteStoreRoute,
+        {
+          params: {
+            access_token: store.access_token,
+            user_id: store.user_id
+          }
+        })
+      return data;
+  } catch (error) {
+      console.log(error);
+  }
+}
