@@ -1,6 +1,5 @@
 import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { setProductsToPack, getOrdersProblem } from '../../redux/actions/actions';
 import { useDispatch } from "react-redux";
 

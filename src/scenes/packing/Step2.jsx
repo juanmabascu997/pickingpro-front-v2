@@ -1,13 +1,10 @@
 import { Box, Button, Typography } from "@mui/material";
 import axios from "axios";
-import React from "react";
-import { useRef } from "react";
-import { useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useReactToPrint } from "react-to-print";
 import { labelRoute } from "../../utils/APIRoutes";
 import { generateLabelInfo, printLabel } from "../../utils/LabelGenerator";
 import ReceiptIcon from "@mui/icons-material/Receipt";
-import { useEffect } from "react";
 
 export default function Step2({ carrito, handleNext, handleBack }) {
   const [loading, setLoading] = useState(true);
@@ -146,27 +143,29 @@ export default function Step2({ carrito, handleNext, handleBack }) {
                     Su etiqueta ya fue impresa.
                     Ya podes continuar con la gestión.
                 </Typography>
-                {/* <Box sx={{ pt: 3 }}>
+
+                <Box sx={{ pt: 3 }}>
                     <Button
                     fullWidth={true}
                     variant="contained"
                     endIcon={<ReceiptIcon />}
                     color="success"
                     size="large"
+                    disabled={!loading}
                     onClick={onClickLabelButton}
                     >
-                    Imprimir
+                    Volver a Imprimir
                     </Button>
-                </Box> */}
+                </Box>
             </>
           }
         </Box>
         <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
           <Button color="inherit" onClick={handleBack} sx={{ mr: 1 }} disabled={!loading}>
-            Back
+            Atras
           </Button>
           <Box sx={{ flex: "1 1 auto" }} />
-          <Button onClick={handleNext} disabled={!labelPrinted}>Next</Button>
+          <Button onClick={handleNext} disabled={!labelPrinted}>Siguiente</Button>
         </Box>
       </Box>
       {!labelInfo ? (

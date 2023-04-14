@@ -6,7 +6,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { DialogActions, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 
-export default function ScrollDialogSettings() {
+export default function DeleteDialog({row}) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -18,7 +18,7 @@ export default function ScrollDialogSettings() {
   };
 
   const handleSubmit = async () => {
-    window.open("https://www.tiendanube.com/apps/6152/authorize", '_blank', 'noreferrer')
+    window.open(`https://www.tiendanube.com/webhooks/${row.user_id}`, '_blank', 'noreferrer')
     setOpen(false);
   };
 
@@ -39,7 +39,7 @@ export default function ScrollDialogSettings() {
         <Button variant="contained" color="secondary" onClick={() => {
           handleClickOpen();
         }}>
-        AGREGAR CONEXIÓN
+            Eliminar Conexión
         </Button>
 
         </Box>
@@ -51,7 +51,7 @@ export default function ScrollDialogSettings() {
         aria-describedby="scroll-dialog-description"
       >
         <DialogTitle id="scroll-dialog-title">
-          Conectarse a una tienda
+          Eliminar conexion con una tienda
         </DialogTitle>
         <DialogContent dividers sx={{ height: "100vh" }}>
           <DialogContent
@@ -69,7 +69,7 @@ export default function ScrollDialogSettings() {
         </DialogContent>
         <DialogActions>
             <Button variant="contained" color="secondary" onClick={handleSubmit}>
-                Vincular
+                Desvincular
             </Button>
             <Button color="primary" onClick={handleClose}>
                 Cancelar

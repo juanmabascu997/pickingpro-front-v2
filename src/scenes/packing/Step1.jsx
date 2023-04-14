@@ -25,11 +25,11 @@ export default function Step1({carrito, handleNext}) {
                 disabled={true}
                 sx={{ mr: 1 }}
             >
-                Back
+                Atras
             </Button>
             <Box sx={{ flex: '1 1 auto' }} />
             <Button onClick={handleNext}>
-                Next
+                Siguiente
             </Button>
         </Box>
     </Box>

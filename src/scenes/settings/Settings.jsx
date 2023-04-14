@@ -1,12 +1,12 @@
-import { Box, Button, ButtonBase, Typography, useTheme } from "@mui/material";
+import { Box, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { storeRoute } from "../../utils/APIRoutes";
 import axios from "axios";
 import ScrollDialogSettings from "./DialogSettings";
+import DeleteDialog from "./DeleteDialog";
 
 const Settings = () => {
   const theme = useTheme();
@@ -48,6 +48,18 @@ const Settings = () => {
       field: "nombre",
       headerName: "Tienda",
       flex: 1,
+    },
+    {
+      field: "delete",
+      headerName: "Eliminar conexión",
+      flex: 1,
+      renderCell: (row) => {
+        return (
+          <>
+            <DeleteDialog row={row.row} />
+          </>
+        );
+      },
     },
   ];
 

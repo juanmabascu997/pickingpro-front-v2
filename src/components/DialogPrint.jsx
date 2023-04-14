@@ -8,15 +8,12 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { ClearIsBeingPackagedBy } from '../data/testData';
 import { generateLabelInfo } from '../utils/LabelGenerator';
 import { useReactToPrint } from 'react-to-print'
-import { useRef } from 'react';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 
 export default function DialogPrint({row, setOpen, open}) {
     const componentRef = useRef(null);
     const [labelInfo, setLabelInfo] = useState();
-
-    // const [taskData, setTaskData] = useState({envio: "bluemail"});
 
     const handlePrint = useReactToPrint({
       content: () => componentRef.current,
@@ -40,16 +37,6 @@ export default function DialogPrint({row, setOpen, open}) {
 
         await timeout(100);
         handlePrint();
-
-      // //Si el metodo de impresion es zebra y es envio en el dia
-      // if ((taskData.envio == "same-day") && (printMethod == 'zebra')) {
-      //   await printLabel(orderToPack, 'same-day');
-      // }
-
-      // //Si el metodo de impresion es zebra y es cash on delivery
-      // if ((taskData.envio == 'cod') && (printMethod == 'zebra')) {
-      //   await printLabel(orderToPack, 'cod');
-      // }
     } catch (error) {
       console.log(error);
     }
@@ -57,7 +44,7 @@ export default function DialogPrint({row, setOpen, open}) {
 
 
   const packedHandler = async ()=> {
-    let resp = await onClickLabelButton()
+    await onClickLabelButton()
   }
 
 

@@ -85,7 +85,7 @@ export async function PackedHandler(orderToPack) {
     const myUser = await JSON.parse(localStorage.getItem("userData"));
     let token = myUser.token;
 
-    const { data } = await axios.post(packOrderRoute, 
+    await axios.post(packOrderRoute, 
       { myRequest: 
           {
             id: orderToPack.id, 
@@ -123,7 +123,7 @@ export async function SetIsBeingPackagedBy(orderToPack) {
 
 export async function ClearIsBeingPackagedBy(orderToPack) {
   try {
-    const { data } = await axios.post(stopBeingPackaged, 
+    await axios.post(stopBeingPackaged, 
       { myRequest: 
           {
             id: orderToPack.id, 
@@ -144,7 +144,6 @@ export async function GetDashboardData() {
           params: myUser
       });
       if (data.err){
-        console.log(data.err);
         return [];
       } else {
         return data;
@@ -161,7 +160,7 @@ export async function ReportProblem(myProblem) {
 
       myProblem.token = myUser.token
 
-      const { data } = await axios.post(reportProblemRoute, {
+      await axios.post(reportProblemRoute, {
         ...myProblem
       });
       

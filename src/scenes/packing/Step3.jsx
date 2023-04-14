@@ -36,7 +36,7 @@ export default function Step2({carrito, handleNext, handleBack}) {
                 onClick={handleBack}
                 sx={{ mr: 1 }}
             >
-                Back
+                Atras
             </Button>
             <Box sx={{ flex: '1 1 auto' }} />
             <Button onClick={()=>{middelHandler()}} disabled={loading}>

@@ -20,17 +20,22 @@ const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [cardData, setCardData] = React.useState({});
+  const [subtitle, setSubtitle] = React.useState('');
+
   const packingProducts = useSelector(state => state.packingProducts)
+  const userInfo = useSelector(state => state.user)
   
   React.useEffect(() => {
     GetDashboardData().then(res => setCardData(res))
+    setSubtitle("Bienvenido " + userInfo.name)
   }, [packingProducts])
+
 
   return (
     <Box m="20px">
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="DASHBOARD" subtitle="Bienvenido a tu dashboard" />
+        <Header title="DASHBOARD" subtitle={subtitle} />
       </Box>
 
       {/* GRID & CHARTS */}

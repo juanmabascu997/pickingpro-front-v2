@@ -50,10 +50,8 @@ export default function HorizontalLinearStepper({carrito, handleClose}) {
           </Typography>
         </React.Fragment>
       ) :
-      activeStep === 0 ? 
-      (<Step1 carrito={carrito} handleNext={handleNext}/>):
-      activeStep === 1 ? 
-      (<Step2 carrito={carrito} handleNext={handleNext} handleBack={handleBack}/>):
+      activeStep === 0 ? (<Step1 carrito={carrito} handleNext={handleNext}/>):
+      activeStep === 1 ? (<Step2 carrito={carrito} handleNext={handleNext} handleBack={handleBack}/>):
       (<Step3 carrito={carrito} handleNext={handleNext} handleBack={handleBack}/>)
       }
     </Box>

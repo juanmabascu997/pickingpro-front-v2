@@ -2,16 +2,13 @@ import {
     Avatar,
     Box,
     Button,
-    Container,
-    FormControl,
-    FormLabel,
     Grid,
     TextField,
     Typography,
   } from "@mui/material";
   import React from "react";
   import { useState } from "react";
-  import { Link, useNavigate } from "react-router-dom";
+  import { useNavigate } from "react-router-dom";
   import { ToastContainer, toast } from "react-toastify";
   import axios from "axios";
   import { registerRoute } from "../utils/APIRoutes";
@@ -23,7 +20,6 @@ import { useDispatch } from 'react-redux';
   function Register({setRegister}) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    // const [ disabled, setDisabled ] = useState(true)
 
     const [values, setValues] = useState({
       name: "",
@@ -135,7 +131,6 @@ import { useDispatch } from 'react-redux';
                   fullWidth
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
-                  // disabled={disabled}
                 >
                     Registrarse
                 </Button>
