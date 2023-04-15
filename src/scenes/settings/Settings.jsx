@@ -12,6 +12,7 @@ const Settings = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [connectedStores, setConnectedStores] = useState([]);
+  const [reload, reloadPage] = useState(false);
   const [open, setOpen] = useState(false);
 
   const getStores = async () => {
@@ -30,6 +31,10 @@ const Settings = () => {
   useEffect(() => {
     getStores();
   }, []);
+
+  useEffect(() => {
+    getStores();
+  }, [reload]);
 
   const columns = [
     {
@@ -56,7 +61,7 @@ const Settings = () => {
       renderCell: (row) => {
         return (
           <>
-            <DeleteDialog row={row.row} />
+            <DeleteDialog row={row.row} reloadPage={reloadPage} reload={reload}/>
           </>
         );
       },

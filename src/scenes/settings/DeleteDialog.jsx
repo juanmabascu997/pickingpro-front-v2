@@ -8,7 +8,7 @@ import { Box } from "@mui/system";
 import { DeleteStoreWebhoks } from "../../data/testData";
 import { toast } from "react-toastify";
 
-export default function DeleteDialog({row}) {
+export default function DeleteDialog({row, reloadPage, reload}) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -26,6 +26,7 @@ export default function DeleteDialog({row}) {
           position: "bottom-right",
           closeOnClick: false,
         });
+        reloadPage(!reload);
       } else {
         toast.error("Error en proceso de eliminar conexión.", {
           position: "bottom-right",
