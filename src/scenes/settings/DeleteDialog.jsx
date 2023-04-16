@@ -76,9 +76,8 @@ export default function DeleteDialog({row, reloadPage, reload}) {
             sx={{ height: "100%" }}
           > 
             <Box  sx={{ display: "flex", flexDirection: 'column', alignItems: 'center', justifyContent:'none'}}>
-                <Typography variant="h4" sx={{ mt: 2 }}><strong>Conexión</strong></Typography>
-                <Typography sx={{ mb: 1 }}>Recorda que para conectar los webhooks de tu tienda, debe estar abierta tu tienda en <a href="https://www.tiendanube.com/">tiendanube.com</a></Typography>
-                <Typography sx={{ mb: 1 }}><i>Hace click abajo para continuar a la vinculación:</i></Typography>
+                <Typography variant="h4" sx={{ mt: 2 }}><strong>Desconexión</strong></Typography>
+                <Typography sx={{ mb: 1 }}><i>Hace click abajo para continuar a la desvinculación:</i></Typography>
             </Box>  
           </DialogContent>
         </DialogContent>

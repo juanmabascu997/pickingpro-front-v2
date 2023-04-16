@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
-import { mockTransactions } from "../../data/mockData";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
 import InventoryIcon from '@mui/icons-material/Inventory';
 import LibraryAddCheckIcon from '@mui/icons-material/LibraryAddCheck';
@@ -15,6 +14,8 @@ import ProgressCircle from "../../components/ProgressCircle";
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import { GetDashboardData } from '../../data/testData'
 import { useSelector } from 'react-redux';
+import axios from 'axios';
+import { storeRoute } from '../../utils/APIRoutes';
 
 const Dashboard = () => {
   const theme = useTheme();
@@ -24,9 +25,24 @@ const Dashboard = () => {
 
   const packingProducts = useSelector(state => state.packingProducts)
   const userInfo = useSelector(state => state.user)
+  const [connectedStores, setConnectedStores] = React.useState([]);
+
+  async function getStores () {
+    const { data } = await axios.get(storeRoute);
+    if (data) {
+      let res = data.map((e, index) => {
+        return {
+          ...e,
+          id: index,
+        };
+      });
+      setConnectedStores(res);
+    }
+  }
   
   React.useEffect(() => {
     GetDashboardData().then(res => setCardData(res))
+    getStores()
     setSubtitle("Bienvenido " + userInfo.name)
   }, [packingProducts])
 
@@ -54,7 +70,7 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="0"
+            title={cardData.pending_orders}
             subtitle="Pendientes de empaquetar"
             progress="0.75"
             icon={
@@ -174,12 +190,12 @@ const Dashboard = () => {
             p="15px"
           >
             <Typography color={colors.grey[100]} variant="h5" fontWeight="600">
-              Recent Transactions
+              Tiendas conectadas
             </Typography>
           </Box>
-          {mockTransactions.map((transaction, i) => (
+          {connectedStores.map((transaction, i) => (
             <Box
-              key={`${transaction.txId}-${i}`}
+              key={`${transaction._id}`}
               display="flex"
               justifyContent="space-between"
               alignItems="center"
@@ -192,20 +208,17 @@ const Dashboard = () => {
                   variant="h5"
                   fontWeight="600"
                 >
-                  {transaction.txId}
-                </Typography>
-                <Typography color={colors.grey[100]}>
-                  {transaction.user}
+                  {transaction.nombre}
                 </Typography>
               </Box>
-              <Box color={colors.grey[100]}>{transaction.date}</Box>
+              {/* <Box color={colors.grey[100]}>{transaction.date}</Box>
               <Box
                 backgroundColor={colors.greenAccent[500]}
                 p="5px 10px"
                 borderRadius="4px"
               >
                 ${transaction.cost}
-              </Box>
+              </Box> */}
             </Box>
           ))}
         </Box>
