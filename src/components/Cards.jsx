@@ -28,7 +28,7 @@ export default function RecipeReviewCard({element, handleChange}) {
   };
 
   return (
-    <Card sx={{ maxWidth: 345 , bgcolor: elementCopy.select ? "#cccccc" : "white" }}>
+    <Card sx={{ width: 100+'%', maxWidth: 500, bgcolor: elementCopy.select ? "#cccccc" : "white" }}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
