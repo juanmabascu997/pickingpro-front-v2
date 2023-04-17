@@ -7,7 +7,7 @@ import { generateLabelInfo, printLabel } from "../../utils/LabelGenerator";
 import ReceiptIcon from "@mui/icons-material/Receipt";
 
 export default function Step2({ carrito, handleNext, handleBack }) {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [labelPrinted, setLabelPrinted] = useState(false);
   const [taskData, setTaskData] = useState();
   const [printMethod, setPrintMethod] = useState("pdf");
@@ -130,7 +130,7 @@ export default function Step2({ carrito, handleNext, handleBack }) {
                     endIcon={<ReceiptIcon />}
                     color="success"
                     size="large"
-                    disabled={!loading}
+                    disabled={loading}
                     onClick={onClickLabelButton}
                     >
                     Imprimir
@@ -151,7 +151,7 @@ export default function Step2({ carrito, handleNext, handleBack }) {
                     endIcon={<ReceiptIcon />}
                     color="success"
                     size="large"
-                    disabled={!loading}
+                    disabled={loading}
                     onClick={onClickLabelButton}
                     >
                     Volver a Imprimir
@@ -161,7 +161,7 @@ export default function Step2({ carrito, handleNext, handleBack }) {
           }
         </Box>
         <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-          <Button color="inherit" onClick={handleBack} sx={{ mr: 1 }} disabled={!loading}>
+          <Button color="inherit" onClick={handleBack} sx={{ mr: 1 }} disabled={loading}>
             Atras
           </Button>
           <Box sx={{ flex: "1 1 auto" }} />

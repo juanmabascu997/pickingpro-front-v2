@@ -19,9 +19,6 @@ export default function RecipeReviewCard({element, handleChange}) {
     handleChange(elementCopy)
   }, [elementCopy])
 
-  // React.useEffect(()=>{
-  //   console.log(elementCopy);
-  // }, [elementCopy])
 
   const handleSelectClick = () => {
     setElement({
@@ -31,17 +28,12 @@ export default function RecipeReviewCard({element, handleChange}) {
   };
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 345 , bgcolor: elementCopy.select ? "#cccccc" : "white" }}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
             Art
           </Avatar>
-        }
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
         }
         title={elementCopy.name}
         subheader={elementCopy.product_id}

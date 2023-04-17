@@ -44,11 +44,11 @@ export default function PickingScreen({setPickingScreen}) {
     <div>
         <DialogPicking setPickingScreen={setPickingScreen} pickingProducts={pickingProducts} setOpen={setOpen} open={open} />
 
-        <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }} className="noWrap"> 
+        <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }} > 
                 {
                     pickingProducts ? pickingProducts.length === 0 ? <p>No hay pedidos</p> : pickingProducts.map((products, index) => {
                         return (
-                            <Grid item xs={12} key={index}>
+                            <Grid item xs={6} key={index}>
                                 <Box display="flex" justifyContent="center">
                                     <Cards element={products} handleChange={handleChange}/>
                                 </Box>

@@ -25,3 +25,16 @@
 .textAreaStyle:focus-visible {
     outline: none !important;
 }
+
+.css-1xgjpwf-MuiGrid-root {
+    flex-wrap: wrap !important;
+}
+
+.css-1emocca {
+    flex-wrap: wrap !important;
+    gap: 5px;
+}
+
+.css-1t1j96h-MuiPaper-root-MuiDialog-paper {
+    width: 100% !important;
+}
