@@ -29,6 +29,10 @@ const Packing = () => {
       headerName: "ID",
     },
     {
+      field: "number",
+      headerName: "Nro de pedido",
+    },
+    {
       field: "order_asigned_to_name",
       headerName: "Asignado a:",
       flex: 1,
