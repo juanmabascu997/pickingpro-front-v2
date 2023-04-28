@@ -110,6 +110,7 @@ export async function SetIsBeingPackagedBy(orderToPack) {
       { myRequest: 
           {
             id: orderToPack.id, 
+            store_id: orderToPack.store_id
           },
         token: token
       }
