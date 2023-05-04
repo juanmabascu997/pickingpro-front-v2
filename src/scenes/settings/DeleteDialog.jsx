@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 
 export default function DeleteDialog({row, reloadPage, reload}) {
   const [open, setOpen] = React.useState(false);
+  const user = JSON.parse(localStorage.getItem("userData"))
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -51,9 +52,14 @@ export default function DeleteDialog({row, reloadPage, reload}) {
   return (
     <>
         <Box>
-        <Button variant="contained" color="secondary" onClick={() => {
-          handleClickOpen();
-        }}>
+        <Button 
+          variant="contained" 
+          color="secondary" 
+          onClick={() => {
+            handleClickOpen();
+          }}
+          disabled={!user.valid}
+        >
             Eliminar Conexión
         </Button>
 

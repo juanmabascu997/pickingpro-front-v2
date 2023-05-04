@@ -19,6 +19,7 @@ const defaultValues = {
 const FormScreen = ({setPickingScreen}) => {
   const [formValues, setFormValues] = useState(defaultValues);
   const dispatch = useDispatch();
+  const user = JSON.parse(localStorage.getItem("userData"))
   
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -67,7 +68,12 @@ const FormScreen = ({setPickingScreen}) => {
 
         <Grid item xs={12}>
           <Box display="flex" justifyContent="center" >
-            <Button variant="contained" color="primary" type="submit">
+            <Button 
+              variant="contained" 
+              color="primary" 
+              type="submit"
+              disabled={!user.valid}
+            >
               Comenzar Tarea
             </Button>
           </Box>

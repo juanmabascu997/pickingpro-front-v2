@@ -8,6 +8,7 @@ import { Box } from "@mui/system";
 
 export default function ScrollDialogSettings() {
   const [open, setOpen] = React.useState(false);
+  const user = JSON.parse(localStorage.getItem("userData"))
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -36,9 +37,14 @@ export default function ScrollDialogSettings() {
   return (
     <>
         <Box>
-        <Button variant="contained" color="secondary" onClick={() => {
-          handleClickOpen();
-        }}>
+        <Button 
+          variant="contained" 
+          color="secondary" 
+          onClick={() => {
+            handleClickOpen();
+          }}
+          disabled={!user.valid}
+        >
         AGREGAR CONEXIÓN
         </Button>
 

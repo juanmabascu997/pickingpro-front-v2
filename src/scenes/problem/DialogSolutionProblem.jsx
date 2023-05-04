@@ -20,6 +20,7 @@ export default function ScrollDialogSolutionProblem({ row }) {
   const [scroll, setScroll] = React.useState("paper");
   const dispatch = useDispatch()  
   const carrito = row.row;
+  const user = JSON.parse(localStorage.getItem("userData"))
 
   const handleClickOpen = (scrollType) => {
     SetIsBeingPackagedBy(carrito)
@@ -72,7 +73,7 @@ export default function ScrollDialogSolutionProblem({ row }) {
       <Button
         color="success"
         variant="contained"
-        disabled={carrito.order_asigned_to}
+        disabled={carrito.order_asigned_to || !user.valid}
         onClick={() => {
           handleClickOpen("paper");
         }}

@@ -55,10 +55,17 @@ export default function SignInSide() {
         setUser(res).then((resp) => {
           dispatch(resp);
         })  
-        toast.success("Bienvenido!", {
-          position: "bottom-right",
-          closeOnClick: false,
-        });
+        if(res.valid) {
+          toast.success("Bienvenido!", {
+            position: "bottom-right",
+            closeOnClick: false,
+          });
+        } else {
+          toast.warning("Bienvenido! Recorda pedir al administrador la validación de tu cuenta.", {
+            position: "bottom-right",
+            closeOnClick: false,
+          });
+        }
         localStorage.setItem('userData', JSON.stringify(res));
         navigate("/");
       }

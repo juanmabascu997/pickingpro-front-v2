@@ -12,6 +12,7 @@ import { toast } from 'react-toastify';
 export default function ScrollDialog({row}) {
   const [open, setOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState('paper');
+  const user = JSON.parse(localStorage.getItem("userData"))
 
   const carrito = row.row
 
@@ -49,7 +50,7 @@ export default function ScrollDialog({row}) {
   return (
     <>
       <Button variant="contained"
-              disabled={carrito.order_asigned_to || null}
+              disabled={carrito.order_asigned_to || !user.valid}
               color="secondary"
               onClick={()=>{handleClickOpen('paper')}}
       >

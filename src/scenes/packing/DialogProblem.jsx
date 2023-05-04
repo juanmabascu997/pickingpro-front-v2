@@ -18,6 +18,7 @@ export default function ScrollDialogProblem({ row }) {
   const [open, setOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState("paper");
   const [problem, setProblem] = React.useState("");
+  const user = JSON.parse(localStorage.getItem("userData"))
 
   const carrito = row.row;
 
@@ -72,7 +73,7 @@ export default function ScrollDialogProblem({ row }) {
     <>
       <Button
         color="error"
-        disabled={carrito.order_asigned_to}
+        disabled={carrito.order_asigned_to || !user.valid}
         onClick={() => {
           handleClickOpen("paper");
         }}
