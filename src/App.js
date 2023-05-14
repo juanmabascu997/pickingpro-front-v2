@@ -14,6 +14,7 @@ import SetWorker from "./scenes/global/SetWorker";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import Problem from "./scenes/problem";
+import Admin from "./scenes/admin";
 import Settings from "./scenes/settings/Settings";
 
 
@@ -40,6 +41,8 @@ function App() {
                   <Route path="/login" element={<SignInSide />} />
                   <Route path="/problem" element={<Problem />} />
                   <Route path="/settings" element={<Settings />} />
+                  <Route path="/admin" element={<Admin />} />
+
                 </Routes>
               </main>
             </div>

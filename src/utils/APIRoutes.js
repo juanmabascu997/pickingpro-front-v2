@@ -14,9 +14,13 @@ export const packOrderRoute = `${host}/api/pack-order`;
 export const getOrdersToShip = `${host}/api/ship-orders`;
 export const registerRoute = `${host}/auth/register`;
 export const loginRoute = `${host}/auth/login`;
+export const validateUserRoute = `${host}/auth/validate`;
+export const adminUserRoute = `${host}/auth/admin-user`;
 export const validRoute = `${host}/auth/`;
 export const dashboardData = `${host}/data/dashboard-data`;
 
+
+export const usersRoute = `${host}/info/users-data`;
 export const userInfo = `${host}/info/user-data`;
 export const storeInfo = `${host}/info/store-data`;
 export const deleteStoreRoute = `${host}/api/delete-store`;

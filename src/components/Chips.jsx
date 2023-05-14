@@ -14,7 +14,7 @@ export default function Chips({ info, index }) {
     },
   });
   return (
-    <Stack direction="row" spacing={1} key={index}>
+    <Stack direction="row" spacing={1} key={index + info.sku}>
       <CustomWidthTooltip title={info.name + ", SKU: " + info.sku + ', Variante: ' + info.variant_values[0]}>
         <Chip
           avatar={<Avatar alt={info.name} src={info.image.src} />}

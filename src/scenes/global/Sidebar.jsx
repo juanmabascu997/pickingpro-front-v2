@@ -7,12 +7,15 @@ import { tokens } from "../../theme";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import AodIcon from "@mui/icons-material/Aod";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import { Inventory, ReportProblem } from "@mui/icons-material";
+import { Inventory, ReportProblem, SupervisorAccount } from "@mui/icons-material";
 import { useSelector } from "react-redux";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const isAdmin = useSelector(state => state.user.admin)
+
+  if(title === 'Admin' && !isAdmin) return null
   return (
     <MenuItem
       active={selected === title}
@@ -34,6 +37,7 @@ const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
   const isLogin = useSelector(state => state.isLogin)
+  const isAdmin = useSelector(state => state.user.admin)
 
   return (
     <Box
@@ -52,6 +56,9 @@ const Sidebar = () => {
         },
         "& .pro-menu-item.active": {
           color: "#6870fa !important",
+        },
+        "& .pro-menu-item.hiddeclass": {
+          display: "none",
         },
       }}
       className={isLogin ? 'hiddeClass' : ''}
@@ -112,6 +119,14 @@ const Sidebar = () => {
               icon={<ReportProblem />}
               selected={selected}
               setSelected={setSelected}
+            />
+            <Item
+              title="Admin"
+              to="/admin"
+              icon={<SupervisorAccount />}
+              selected={selected}
+              setSelected={setSelected}
+              className={isAdmin ? '' : 'hiddeclass'}
             />
           </Box>
         </Menu>

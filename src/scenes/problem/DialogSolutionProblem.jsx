@@ -71,6 +71,7 @@ export default function ScrollDialogSolutionProblem({ row }) {
   return (
     <>
       <Button
+        key={carrito.id}
         color="success"
         variant="contained"
         disabled={carrito.order_asigned_to || !user.valid}

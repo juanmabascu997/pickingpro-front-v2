@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getProblemsRoute, dashboardData, host, packingProductsRoute, packOrderRoute, pickingProductsRoute, reportProblemRoute, setIsBeingPackagedBy, setPickedProductsRoute, stopBeingPackaged, solveProblemRoute, storeInfo, deleteStoreRoute } from "../utils/APIRoutes";
+import { getProblemsRoute, dashboardData, host, packingProductsRoute, packOrderRoute, pickingProductsRoute, reportProblemRoute, setIsBeingPackagedBy, setPickedProductsRoute, stopBeingPackaged, solveProblemRoute, storeInfo, deleteStoreRoute, validateUserRoute, adminUserRoute } from "../utils/APIRoutes";
 
 
 export async function Login(email, password) {
@@ -216,6 +216,47 @@ export async function DeleteStoreWebhoks(store) {
             user_id: store.user_id
           }
         })
+      return data;
+  } catch (error) {
+      console.log(error);
+  }
+}
+
+export async function ValidateUser(validate, toValidate, password) {
+  try {
+      const myUser = await JSON.parse(localStorage.getItem("userData"));
+      const { email } = myUser;
+
+      const { data } = await axios.post(validateUserRoute,
+        {
+          email,
+          password,
+          toValidate,
+          validate
+        },
+        { withCredentials: true }
+      )
+      return data;
+  } catch (error) {
+      console.log(error);
+  }
+}
+
+
+export async function AdminUser(validate, toValidate, password) {
+  try {
+      const myUser = await JSON.parse(localStorage.getItem("userData"));
+      const { email } = myUser;
+
+      const { data } = await axios.post(adminUserRoute,
+        {
+          email,
+          password,
+          toValidate,
+          validate
+        },
+        { withCredentials: true }
+      )
       return data;
   } catch (error) {
       console.log(error);

@@ -63,7 +63,7 @@ const Dashboard = () => {
       >
         {/* ROW 1 */}
         <Box
-          gridColumn="span 3"
+          gridColumn="span 4"
           backgroundColor={colors.primary[400]}
           display="flex"
           alignItems="center"
@@ -81,7 +81,7 @@ const Dashboard = () => {
           />
         </Box>
         <Box
-          gridColumn="span 3"
+          gridColumn="span 4"
           backgroundColor={colors.primary[400]}
           display="flex"
           alignItems="center"
@@ -99,7 +99,7 @@ const Dashboard = () => {
           />
         </Box>
         <Box
-          gridColumn="span 3"
+          gridColumn="span 4"
           backgroundColor={colors.primary[400]}
           display="flex"
           alignItems="center"
@@ -116,7 +116,7 @@ const Dashboard = () => {
             }
           />
         </Box>
-        <Box
+        {/* <Box
           gridColumn="span 3"
           backgroundColor={colors.primary[400]}
           display="flex"
@@ -133,7 +133,7 @@ const Dashboard = () => {
               />
             }
           />
-        </Box>
+        </Box> */}
         {/* ROW 2 */}
         <Box
           gridColumn="span 8"
@@ -153,23 +153,23 @@ const Dashboard = () => {
                 fontWeight="600"
                 color={colors.grey[100]}
               >
-                Revenue Generated
+                Gestiones realizadas por el usuario
               </Typography>
               <Typography
                 variant="h3"
                 fontWeight="bold"
                 color={colors.greenAccent[500]}
               >
-                $59,342.32
+                22
               </Typography>
             </Box>
-            <Box>
+            {/* <Box>
               <IconButton>
                 <DownloadOutlinedIcon
                   sx={{ fontSize: "26px", color: colors.greenAccent[500] }}
                 />
               </IconButton>
-            </Box>
+            </Box> */}
           </Box>
           <Box height="250px" m="-20px 0 0 0">
             <LineChart isDashboard={true} />
@@ -222,8 +222,7 @@ const Dashboard = () => {
             </Box>
           ))}
         </Box>
-
-        {/* ROW 3 */}
+      {/* 
         <Box
           gridColumn="span 4"
           gridRow="span 2"
@@ -282,8 +281,8 @@ const Dashboard = () => {
           <Box height="200px">
             <GeographyChart isDashboard={true} />
           </Box>
-        </Box>
-      </Box>
+        </Box>*/}
+      </Box> 
     </Box>
   );
 };
