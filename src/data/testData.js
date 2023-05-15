@@ -60,7 +60,7 @@ export async function SetPickedProducts(pedidos, user) {
   let ids = new Set()
 
   pedidos.map(prod => {
-    if(prod.id.length) {
+    if(prod.id.length > 0) {
       ids.add(...prod.id)
     }
     return prod
