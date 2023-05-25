@@ -18,6 +18,7 @@ const defaultValues = {
 
 const FormScreen = ({setPickingScreen}) => {
   const [formValues, setFormValues] = useState(defaultValues);
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const user = JSON.parse(localStorage.getItem("userData"))
   
@@ -32,7 +33,7 @@ const FormScreen = ({setPickingScreen}) => {
   const handleSubmit = (event) => {
     //Prevenimos evento inicial
     event.preventDefault();
-
+    setLoading(true)
     setProductsToPick(formValues.pedidos).then((resp) => {
       dispatch(resp).then((res)=>{
         if(res.payload.length > 0) setPickingScreen(true)
@@ -42,6 +43,8 @@ const FormScreen = ({setPickingScreen}) => {
             closeOnClick: false,
           });
         }
+        setLoading(false)
+
       })
     })
   };
@@ -72,9 +75,9 @@ const FormScreen = ({setPickingScreen}) => {
               variant="contained" 
               color="primary" 
               type="submit"
-              disabled={!user.valid}
+              disabled={!user.valid || loading}
             >
-              Comenzar Tarea
+              {loading ? 'Cargando...' : 'Comenzar Tarea'}
             </Button>
           </Box>
         </Grid>

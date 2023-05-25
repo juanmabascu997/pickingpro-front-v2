@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import { Avatar, Box, Chip, Stack, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
+import { useState } from "react";
 
 export default function DialogPicking({
   setPickingScreen,
@@ -19,6 +20,7 @@ export default function DialogPicking({
   open,
 }) {
   let user = useSelector((state) => state.user);
+  const [loading, setLoading] = useState(false);
 
   const CustomWidthTooltip = styled(({ className, ...props }) => (
     <Tooltip {...props} classes={{ popper: className }} />
@@ -33,6 +35,7 @@ export default function DialogPicking({
   };
 
   const pickedHandler = async () => {
+    setLoading(true)
     const data = await SetPickedProducts(pickingProducts, user.user);
     if (data) {
       toast.success("Productos pickeados con exito", {
@@ -41,6 +44,7 @@ export default function DialogPicking({
       });
       setPickingScreen(false);
     }
+    setLoading(false)
     setOpen(false);
   };
 
@@ -99,8 +103,8 @@ export default function DialogPicking({
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={pickedHandler}>Continuar</Button>
-          <Button onClick={handleClose} autoFocus>
+          <Button onClick={pickedHandler} disabled={loading} autoFocus>{loading ? 'Cargando...' : 'Continuar'}</Button>
+          <Button onClick={handleClose} disabled={loading} autoFocus>
             Cancelar
           </Button>
         </DialogActions>
