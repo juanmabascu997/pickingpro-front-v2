@@ -18,7 +18,8 @@ export default function Chips({ info, index }) {
       <CustomWidthTooltip title={info.name + ", SKU: " + info.sku + ', Variante: ' + info.variant_values[0]}>
         <Chip
           avatar={<Avatar alt={info.name} src={info.image.src} />}
-          label={info.name}
+          label={info.name + ' | x' + info.quantity}
+          color="primary"
           variant="outlined"
         />
       </CustomWidthTooltip>
