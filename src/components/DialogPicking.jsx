@@ -36,7 +36,7 @@ export default function DialogPicking({
 
   const pickedHandler = async () => {
     setLoading(true)
-    const data = await SetPickedProducts(pickingProducts, user.user);
+    const data = await SetPickedProducts(pickingProducts, user.token);
     if (data) {
       toast.success("Productos pickeados con exito", {
         position: "bottom-right",

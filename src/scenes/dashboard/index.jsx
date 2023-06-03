@@ -1,16 +1,11 @@
 import * as React from 'react';
-import { Box, IconButton, Typography, useTheme } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
-import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
 import InventoryIcon from '@mui/icons-material/Inventory';
 import LibraryAddCheckIcon from '@mui/icons-material/LibraryAddCheck';
-import TrafficIcon from "@mui/icons-material/Traffic";
 import Header from "../../components/Header";
 import LineChart from "../../components/LineChart";
-import GeographyChart from "../../components/GeographyChart";
-import BarChart from "../../components/BarChart";
 import StatBox from "../../components/StatBox";
-import ProgressCircle from "../../components/ProgressCircle";
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import { GetDashboardData } from '../../data/testData'
 import { useSelector } from 'react-redux';
@@ -153,14 +148,14 @@ const Dashboard = () => {
                 fontWeight="600"
                 color={colors.grey[100]}
               >
-                Gestiones realizadas por el usuario
+                Gestiones realizadas por el usuario hoy
               </Typography>
               <Typography
                 variant="h3"
                 fontWeight="bold"
                 color={colors.greenAccent[500]}
               >
-                22
+                {cardData.picked_orders_today + cardData.packed_orders_today}
               </Typography>
             </Box>
             {/* <Box>
