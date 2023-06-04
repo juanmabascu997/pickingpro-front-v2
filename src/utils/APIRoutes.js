@@ -21,8 +21,10 @@ export const dashboardData = `${host}/data/dashboard-data`;
 
 
 export const usersRoute = `${host}/info/users-data`;
+export const userDataDash = `${host}/info/user-data-dashboard`;
 export const userInfo = `${host}/info/user-data`;
 export const storeInfo = `${host}/info/store-data`;
+
 export const deleteStoreRoute = `${host}/api/delete-store`;
 
 
