@@ -5,6 +5,7 @@ import Header from "../../components/Header";
 import { useState } from "react";
 import Main from "./Main";
 import Usuarios from "./Usuarios";
+import Estadisticas from "./Estadisticas";
 
 const Admin = () => {
   const subtitle = "Pantalla solo disponible para administradores.";
@@ -23,9 +24,7 @@ const Admin = () => {
       </Box>
       {
         screen  === 'Estadisticas' ?
-        <Box>
-            <h1>Estadisticas</h1>
-        </Box>
+        <Estadisticas backToMain={backToMain}/>
         : screen  === 'Usuarios' ?
         <Usuarios backToMain={backToMain}/>
         : 

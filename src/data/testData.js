@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getProblemsRoute, dashboardData, host, packingProductsRoute, packOrderRoute, pickingProductsRoute, reportProblemRoute, setIsBeingPackagedBy, setPickedProductsRoute, stopBeingPackaged, solveProblemRoute, storeInfo, deleteStoreRoute, validateUserRoute, adminUserRoute } from "../utils/APIRoutes";
+import { getProblemsRoute, dashboardData, host, packingProductsRoute, packOrderRoute, pickingProductsRoute, reportProblemRoute, setIsBeingPackagedBy, setPickedProductsRoute, stopBeingPackaged, solveProblemRoute, storeInfo, deleteStoreRoute, validateUserRoute, adminUserRoute, userDataDash } from "../utils/APIRoutes";
 
 
 export async function Login(email, password) {
@@ -150,6 +150,27 @@ export async function GetDashboardData() {
       const { data } = await axios.get(dashboardData, {
           params: myUser
       });
+      if (data.err){
+        return [];
+      } else {
+        return data;
+      }
+  } catch (error) {
+      console.log(error);
+  }
+}
+
+export async function GetUserDashboardData(userID) {
+  try {
+      const myUser = await JSON.parse(localStorage.getItem("userData"));
+
+      const { data } = await axios.get(userDataDash, 
+        {params: {
+            myUser: myUser.token,
+            findUserId: userID
+          }
+        }
+      );
       if (data.err){
         return [];
       } else {
