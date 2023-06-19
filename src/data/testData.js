@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getProblemsRoute, dashboardData, host, packingProductsRoute, packOrderRoute, pickingProductsRoute, reportProblemRoute, setIsBeingPackagedBy, setPickedProductsRoute, stopBeingPackaged, solveProblemRoute, storeInfo, deleteStoreRoute, validateUserRoute, adminUserRoute, userDataDash } from "../utils/APIRoutes";
+import { getProblemsRoute, dashboardData, host, packingProductsRoute, packOrderRoute, pickingProductsRoute, reportProblemRoute, setIsBeingPackagedBy, setPickedProductsRoute, stopBeingPackaged, solveProblemRoute, storeInfo, deleteStoreRoute, validateUserRoute, adminUserRoute, userDataDash, pedidoById } from "../utils/APIRoutes";
 
 
 export async function Login(email, password) {
@@ -160,14 +160,16 @@ export async function GetDashboardData() {
   }
 }
 
-export async function GetUserDashboardData(userID) {
+export async function GetUserDashboardData(userID, primeraFecha, segundaFecha) {
   try {
       const myUser = await JSON.parse(localStorage.getItem("userData"));
 
       const { data } = await axios.get(userDataDash, 
         {params: {
             myUser: myUser.token,
-            findUserId: userID
+            findUserId: userID,
+            primeraFecha: primeraFecha,
+            segundaFecha: segundaFecha
           }
         }
       );
@@ -181,6 +183,26 @@ export async function GetUserDashboardData(userID) {
   }
 }
 
+export async function GetPedidoByID(pedidoId) {
+  try {
+      const myUser = await JSON.parse(localStorage.getItem("userData"));
+
+      const { data } = await axios.get(pedidoById, 
+        {params: {
+            myUser: myUser.token,
+            pedidoId: pedidoId
+          }
+        }
+      );
+      if (data.err){
+        return [];
+      } else {
+        return data;
+      }
+  } catch (error) {
+      console.log(error);
+  }
+}
 
 export async function ReportProblem(myProblem) {
   try {

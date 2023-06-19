@@ -1,4 +1,4 @@
-import { Box, Button, FormControl, Grid, MenuList, Select, Typography, useTheme } from '@mui/material'
+import { Box, Button, Card, Chip, FormControl, Grid, MenuList, Select, Typography, useTheme } from '@mui/material'
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { MenuItem } from 'react-pro-sidebar'
@@ -7,6 +7,10 @@ import { GetUserDashboardData } from '../../data/testData';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import { tokens } from '../../theme';
+import { DateCalendar, DatePicker } from '@mui/x-date-pickers';
+import dayjs from 'dayjs';
+import CustomDay from '../../components/CustomDay';
+import { toast } from 'react-toastify';
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -22,6 +26,12 @@ function Estadisticas({ backToMain }) {
     const [user, setUser] = useState("")
     const [users, setUsers] = useState([])
     const [data, setData] = useState(null)
+    let d = new Date()
+    let day = dayjs(d)
+    const [ primeraFecha, setPrimeraFecha ] = useState(day);
+    const [ segundaFecha, setSegundaFecha ] = useState(day);
+    const [ segundaFechaHabilitada, setSegundaFechaHabilitada] = useState(false); 
+
     const [loading, setLoading] = useState(false)
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
@@ -34,7 +44,27 @@ function Estadisticas({ backToMain }) {
 
     const getData = async (id) => {
         setLoading(true)
-        setData(await GetUserDashboardData(id))
+        if(segundaFecha && segundaFechaHabilitada) {
+            segundaFecha.startOf('day')
+        }
+
+        if(primeraFecha.diff(segundaFecha) < 0 && segundaFechaHabilitada) {
+            toast.error( 'La segunda fecha debe ser anterior a la primera!' , {
+                position: "bottom-right",
+            });
+        } else {
+            let date1 = new Date(primeraFecha).toJSON()
+            date1 = new Date(date1).setHours(20, 59, 59);
+            date1 = new Date(date1).toJSON()
+            
+            if(segundaFechaHabilitada) {
+                var date2 = new Date(segundaFecha).toJSON()
+                date2 = new Date(date2).setHours(0o0, 0o0, 0o0);
+                date2 = new Date(date2).toJSON()
+            }
+            
+            setData(await GetUserDashboardData(id, date1, segundaFechaHabilitada ? date2 : null))
+        }
         setLoading(false)
     }
 
@@ -59,7 +89,8 @@ function Estadisticas({ backToMain }) {
         if(user) {
             getData(user._id)
         }
-      }, [user]);
+      }, [user, primeraFecha, segundaFecha]);
+
   return (
     <Box m="20px">
         <Box>
@@ -72,94 +103,97 @@ function Estadisticas({ backToMain }) {
                 Back
             </Button>
         </Box> 
-        <Box m="10px">
-            <FormControl fullWidth>
-                <Select 
-                    value={user} 
-                    onChange={handleChange}
-                    inputProps={{
-                        name: "name",
-                        id: "demo-controlled-open-select",
-                        "data-testid": "select-input"
-                    }}
-                >
-                    {
-                        users ? users.map(
-                        item => {return(<MenuList onClick={handleChange} key={item.id} value={item}>{item.name}</MenuList>)}
-                        ) :
-                        <MenuItem value="">
-                            <em>Loading data</em>
-                        </MenuItem>
-                    }
-                </Select>
-            </FormControl>
-        </Box>
-        {
-            data && !loading? 
-            <Grid mt="20px" container spacing={4} columns={16}>
-                <Grid xs={8}>
-                    <Box  width="100%" m="0 30px" component="span" sx={{ p: 2}}>
+        <Grid m="20px" container direction="row" justifyContent="start">
+            <Grid xs={4}>
+                <FormControl>
+                    <Select 
+                        value={user} 
+                        onChange={handleChange}
+                        inputProps={{
+                            name: "name",
+                            id: "demo-controlled-open-select",
+                            "data-testid": "select-input"
+                        }}
+                    >
+                        {
+                            users ? users.map(
+                            item => {return(<MenuList onClick={handleChange} key={item.id} value={item}>{item.name}</MenuList>)}
+                            ) :
+                            <MenuItem value="">
+                                <em>Loading data</em>
+                            </MenuItem>
+                        }
+                    </Select>
+                    <Box pt={4}>
                         <Typography
-                            variant="h4"
-                            fontWeight="bold"
-                            sx={{ color: colors.grey[100] }}
+                            variant="p"
+                            fontWeight="ligth"
+                            sx={{ color: colors.grey[100]}}
                         >
-                           Ordenes empaquetadas en la semana:
+                            Selecciona una fecha:
                         </Typography>
-                        <Typography variant="h5" sx={{ color: colors.greenAccent[500] }}>
-                            {data.packed_orders_in_the_week}
-                        </Typography>
+                        <CustomDay 
+                            primeraFecha={primeraFecha} 
+                            segundaFecha={segundaFecha} 
+                            setPrimeraFecha={setPrimeraFecha} 
+                            setSegundaFecha={setSegundaFecha} 
+                            setSegundaFechaHabilitada={setSegundaFechaHabilitada} 
+                            segundaFechaHabilitada={segundaFechaHabilitada}  
+                        />
                     </Box>
-                </Grid>
+                </FormControl>
+            </Grid>
+
+            {
+                data && !loading? 
                 <Grid xs={8}>
-                    <Box  width="100%" m="0 30px" component="span" sx={{ p: 2}}>
-                        <Typography
-                            variant="h4"
-                            fontWeight="bold"
-                            sx={{ color: colors.grey[100] }}
-                        >
-                           Ordenes pickeadas en la semana:
-                        </Typography>
-                        <Typography variant="h5" sx={{ color: colors.greenAccent[500] }}>
-                            {data.picked_orders_in_the_week}
-                        </Typography>
-                    </Box>
-                </Grid>
+                    <Grid xs={8}>
+                        <Box width="100%" component="span" sx={{ p: 2}} display={'flex'} flexDirection={'row'} alignItems={'center'} textAlign={'center'}>
+                            <Chip label="Ordenes empaquetadas en la semana: " />
+                            <Typography variant="h5" sx={{ color: colors.greenAccent[500] }}>
+                                {data.packed_orders_in_the_week}
+                            </Typography>
+                        </Box>
+                    </Grid>
+                    <Grid xs={8}>
+                        <Box width="100%" component="span" sx={{ p: 2}} display={'flex'} flexDirection={'row'} alignItems={'center'} textAlign={'center'}>
+                            <Chip label="Ordenes pickeadas en la semana: " />
+                            <Typography variant="h5" sx={{ color: colors.greenAccent[500] }}>
+                                {data.picked_orders_in_the_week}
+                            </Typography>
+                        </Box>
+                    </Grid>
+                    <Grid xs={8}>
+                        <Box width="100%" component="span" sx={{ p: 2}} display={'flex'} flexDirection={'row'} alignItems={'center'} textAlign={'center'}>
+                            <Chip label="Ordenes empaquetadas hoy: " />                                
+                            <Typography variant="h5" sx={{ color: colors.greenAccent[500] }}>
+                                {data.packed_orders_today}
+                            </Typography>
+                        </Box>
+                    </Grid>
+                    <Grid xs={8}>
+                        <Box width="100%" component="span" sx={{ p: 2}} display={'flex'} flexDirection={'row'} alignItems={'center'} textAlign={'center'}>
+                            <Chip label="Ordenes pickeadas hoy: " />                                
+                            <Typography variant="h5" sx={{ color: colors.greenAccent[500] }}>
+                                {data.picked_orders_today}
+                            </Typography>
+                        </Box>
+                    </Grid>
+                    <Grid xs={8}>
+                        <Box width="100%" component="span" sx={{ p: 2}} display={'flex'} flexDirection={'row'} alignItems={'center'} textAlign={'center'}>
+                            <Chip label="Ordenes pickeadas en las fechas seleccionadas: " />                                
+                            <Typography variant="h5" sx={{ color: colors.greenAccent[500] }}>
+                                {data.picked_orders_in_selected_dates}
+                            </Typography>
+                        </Box>
+                    </Grid>
+                </Grid> :
                 <Grid xs={8}>
-                    <Box  width="100%" m="0 30px" component="span" sx={{ p: 2}}>
-                        <Typography
-                            variant="h4"
-                            fontWeight="bold"
-                            sx={{ color: colors.grey[100] }}
-                        >
-                            Ordenes empaquetadas hoy:
-                        </Typography>
-                        <Typography variant="h5" sx={{ color: colors.greenAccent[500] }}>
-                            {data.packed_orders_today}
-                        </Typography>
-                    </Box>
-                </Grid>
-                <Grid xs={8}>
-                    <Box  width="100%" m="0 30px" component="span" sx={{ p: 2}} backgroundColor>
-                        <Typography
-                            variant="h4"
-                            fontWeight="bold"
-                            sx={{ color: colors.grey[100] }}
-                        >
-                            Ordenes pickeadas hoy:
-                        </Typography>
-                        <Typography variant="h5" sx={{ color: colors.greenAccent[500] }}>
-                        {data.picked_orders_today}
-                        </Typography>
-                    </Box>
-                </Grid>
-            </Grid> :
-            <Grid mt="20px" container spacing={2} columns={16}>
-                <Grid xs={16}>
                     <Item>{loading ? 'Cargando información de usuario...' : 'Seleccione un usuario para ver sus estadisticas'}</Item>
                 </Grid>
-            </Grid>
-        }
+            }
+
+        </Grid>
               
     </Box>
   )
