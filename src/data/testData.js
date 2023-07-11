@@ -98,7 +98,7 @@ export async function PackedHandler(orderToPack) {
             store_id: orderToPack.store_id
           },
         token: token
-      }
+      },
     );
     return true
   } catch (error) {

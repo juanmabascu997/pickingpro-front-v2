@@ -13,7 +13,7 @@ export default function Step2({carrito, handleNext, handleBack}) {
 
     async function middelHandler () {   
         setLoading(true)
-        const { data } = await axios.post(packOrderRoute, { id: carrito.id, store_id: carrito.store_id, token: userInfo.user});
+        const { data } = await axios.post(packOrderRoute, { id: carrito.id, store_id: carrito.store_id, token: userInfo.token});
         if(data) {
             setProductsToPack().then((resp) => {
               dispatch(resp);
