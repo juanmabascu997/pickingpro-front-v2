@@ -1,7 +1,7 @@
 import React from 'react'
-import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import TextField from "@mui/material/TextField";
+import { Icon } from '@mui/material';
 
 function SearchBar({loading, handleChange}) {
   return (
@@ -17,10 +17,8 @@ function SearchBar({loading, handleChange}) {
             placeholder="Search..."
             size="small"
             disabled={loading}
+            onSubmit={(e)=>{handleChange(e.target.value);}}
         />
-        <IconButton type="submit" aria-label="search">
-            <SearchIcon style={{ fill: "blue" }} />
-        </IconButton>
     </form>
     )
 }

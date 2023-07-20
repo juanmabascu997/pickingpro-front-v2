@@ -35,21 +35,16 @@ export async function GetPackingProducts() {
 
 
 
-export async function GetPickingProducts(pedidos) {
-
+export async function GetPickingProducts({pedidos, tiendas, tiposDeEnvios}) {
   const myUser = await JSON.parse(localStorage.getItem("userData"));
 
-  const myData = {
-    pedidos: pedidos
-  }
-
-  const myRequest = {
-    form: myData,
-    token: myUser.token
-  };
-
   const { data } = await axios.get(pickingProductsRoute, {
-    params: myRequest
+    params:{
+      pedidos: pedidos,
+      filtrosTiendas: tiendas,
+      filtrosEnvios: tiposDeEnvios,
+      token: myUser.token
+    }
   });
   
   return data

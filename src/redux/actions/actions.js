@@ -47,10 +47,10 @@ export async function setProductsToPack(){
   };
 }
 
-export async function setProductsToPick(cantidad){
+export async function setProductsToPick(formulario){
   return async function (dispatch) {
     try {
-      let picking = await GetPickingProducts(cantidad)
+      let picking = await GetPickingProducts(formulario)
       if(picking.length === 0) {
         return dispatch({
           type: SET_PICKING,
