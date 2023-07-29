@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getProblemsRoute, dashboardData, host, packingProductsRoute, packOrderRoute, pickingProductsRoute, reportProblemRoute, setIsBeingPackagedBy, setPickedProductsRoute, stopBeingPackaged, solveProblemRoute, storeInfo, deleteStoreRoute, validateUserRoute, adminUserRoute, userDataDash, pedidoById } from "../utils/APIRoutes";
+import { getProblemsRoute, dashboardData, host, packingProductsRoute, packOrderRoute, pickingProductsRoute, reportProblemRoute, setIsBeingPackagedBy, setPickedProductsRoute, stopBeingPackaged, solveProblemRoute, storeInfo, deleteStoreRoute, validateUserRoute, adminUserRoute, userDataDash, pedidoById, cancelPickRoute } from "../utils/APIRoutes";
 
 
 export async function Login(email, password) {
@@ -49,6 +49,17 @@ export async function GetPickingProducts({pedidos, tiendas, tiposDeEnvios}) {
   
   return data
 }
+
+export async function CancelPicking() {
+  const myUser = await JSON.parse(localStorage.getItem("userData"));
+
+  const { data } = await axios.post(cancelPickRoute, {
+    token: myUser.token
+  });
+
+  return data
+}
+
 
 export async function SetPickedProducts(pedidos, user) {
 

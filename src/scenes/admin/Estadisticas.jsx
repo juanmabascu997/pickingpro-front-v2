@@ -117,7 +117,7 @@ function Estadisticas({ backToMain }) {
                     >
                         {
                             users ? users.map(
-                            item => {return(<MenuList onClick={handleChange} key={item.id} value={item}>{item.name}</MenuList>)}
+                            item => {return(<MenuList style={{ padding: "0.5rem", cursor: "pointer" }} onClick={handleChange} key={item.id} value={item}>{item.name}</MenuList>)}
                             ) :
                             <MenuItem value="">
                                 <em>Loading data</em>

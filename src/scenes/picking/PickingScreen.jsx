@@ -6,6 +6,8 @@ import Cards from '../../components/Cards'
 import './PickingStyles.css'
 import DialogPicking from "../../components/DialogPicking";
 import { useState } from 'react'
+import { toast } from 'react-toastify'
+import { CancelPicking } from '../../data/testData'
 
 
 export default function PickingScreen({setPickingScreen}) {
@@ -34,6 +36,23 @@ export default function PickingScreen({setPickingScreen}) {
                 setDisabled(true)
             }
         }
+    }
+
+    const handleCancel = () => {
+        CancelPicking().then(res => {
+            toast.success('Se cancelaron los pedidos a pickear', {
+                position: "bottom-right",
+                closeOnClick: false,
+            });
+            setPickingScreen(false)
+        })
+        .catch(err => {
+            toast.error('Error al cancelar los pedidos a pickear', {
+                position: "bottom-right",
+                closeOnClick: false,
+            });
+            setPickingScreen(false)
+        })
     }
 
     const handleSubmit = async () => {     
@@ -65,6 +84,15 @@ export default function PickingScreen({setPickingScreen}) {
             disabled={disabled}
         >
             MARCAR
+        </Button>
+        <Button 
+            fullWidth
+            variant="outlined"
+            sx={{ mt: 3, mb: 2 }} 
+            onClick={handleCancel} 
+            disabled={open}
+        >
+            Cancelar pickeo
         </Button>
     </div>
   )

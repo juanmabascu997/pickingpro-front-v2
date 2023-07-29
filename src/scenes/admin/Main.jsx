@@ -67,6 +67,24 @@ function Main( {onClickHandler} ) {
           Ver pedido
         </Button>
       </Box>
+      <Box
+        gridColumn="span 4"
+        backgroundColor={colors.primary[400]}
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+      >
+        <Button title="Pedidos" onClick={onClickHandler} 
+          variant="contained"
+          color="secondary"
+          sx={{
+            width: "100%",
+            height: "100%",
+          }}
+        >
+          Ver estanterias
+        </Button>
+      </Box>
     </Box>
   );
 }

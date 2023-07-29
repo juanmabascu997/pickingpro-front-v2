@@ -183,6 +183,7 @@ const FormScreen = ({ setPickingScreen }) => {
                     key={`${stores.id}-tiendasItems`}
                     value={stores.nombre}
                     onClick={handleTiendasChange}
+                    style={{ padding: "0.5rem", cursor: "pointer" }}
                   >
                     {stores.nombre}
                   </MenuList>
@@ -212,6 +213,7 @@ const FormScreen = ({ setPickingScreen }) => {
                     key={`${stores.id}-enviosItems`}
                     value={stores.nombre}
                     onClick={handleEnviosChange}
+                    style={{ padding: "0.5rem", cursor: "pointer" }}
                   >
                     {stores.nombre}
                   </MenuList>

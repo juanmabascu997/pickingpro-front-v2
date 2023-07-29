@@ -7,6 +7,7 @@ import Main from "./Main";
 import Usuarios from "./Usuarios";
 import Estadisticas from "./Estadisticas";
 import Pedidos from "./Pedidos";
+import Estanterias from "./Estanterias";
 
 const Admin = () => {
   const subtitle = "Pantalla solo disponible para administradores.";
@@ -30,6 +31,8 @@ const Admin = () => {
         <Usuarios backToMain={backToMain}/>
         : screen  === 'Pedidos' ?
         <Pedidos backToMain={backToMain}/>
+        : screen  === 'Estanterias' ?
+        <Estanterias backToMain={backToMain}/>
         :
         <Main onClickHandler={onClickHandler} backToMain={backToMain} />
       }

@@ -26,6 +26,7 @@ export const userInfo = `${host}/info/user-data`;
 export const storeInfo = `${host}/info/store-data`;
 export const pedidoById = `${host}/info/product-data`;
 export const shippingMethodsRoute = `${host}/info/shipping-methods`;
+export const cancelPickRoute = `${host}/picking/cancel-products-for-pick`;
 
 
 
