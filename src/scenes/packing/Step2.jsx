@@ -22,7 +22,7 @@ export default function Step2({ carrito, handleNext, handleBack }) {
     //Seteo datos de la tarea
     setTaskData(
         {
-            envio: carrito.shipping_option.includes('Bluemail' || 'Punto de retiro') ? 'bluemail' : 'same-day'
+          envio: carrito.shipping_option.includes('Bluemail') || carrito.shipping_option.includes('Punto de retiro') ? 'bluemail' : 'same-day'
         }
     );
   }
