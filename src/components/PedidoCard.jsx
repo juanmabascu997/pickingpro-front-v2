@@ -3,6 +3,10 @@ import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
+import { Button } from '@mui/material';
+import { ClearIsBeingPackagedBy } from '../data/testData';
+import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 const bull = (
   <Box
@@ -13,7 +17,18 @@ const bull = (
   </Box>
 );
 
-export default function PedidoCard({pedido}) {
+export default function PedidoCard({pedido, backToMain}) {
+  const [loading, setLoading] = useState(false)
+
+  const handledDesasignar = async () => {
+    setLoading(true)
+    await ClearIsBeingPackagedBy(pedido) 
+    toast.success('Pedido desasignado con exito');
+    setLoading(false)
+    setTimeout(()=>{
+      backToMain()
+    }, 5000)
+  }
   return (
     <Card sx={{ minWidth: 275 }}>
       <CardContent>
@@ -58,6 +73,11 @@ export default function PedidoCard({pedido}) {
             <></>
         }
       </CardContent>
+      {
+        pedido.order_asigned_to ? 
+        <Button onClick={handledDesasignar} variant="contained" sx={{ mt: 3, mb: 2 }} disabled={loading}>{loading ? 'Cargando ...' : 'Desasignar'}</Button>
+        : <></>
+      }
     </Card>
   );
 }

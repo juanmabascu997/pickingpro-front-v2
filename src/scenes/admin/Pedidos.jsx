@@ -66,7 +66,7 @@ function Pedidos({ backToMain }) {
                 <Grid xs={8}>
                     <Grid xs={8}>
                         <Box width="100%" component="span" sx={{ p: 2}} display={'flex'} flexDirection={'row'} alignItems={'center'} textAlign={'center'}>
-                            <PedidoCard pedido={data[0]} />
+                            <PedidoCard pedido={data[0]} backToMain={backToMain} />
                         </Box>
                     </Grid>
                 </Grid> :
