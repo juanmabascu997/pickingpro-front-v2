@@ -1,4 +1,4 @@
-import { Box, Button, Card, Chip, FormControl, Grid, MenuList, Select, Typography, useTheme } from '@mui/material'
+import { Box, Button, Chip, FormControl, Grid, MenuList, Select, Typography, useTheme } from '@mui/material'
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { MenuItem } from 'react-pro-sidebar'
@@ -7,10 +7,10 @@ import { GetUserDashboardData } from '../../data/testData';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import { tokens } from '../../theme';
-import { DateCalendar, DatePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 import CustomDay from '../../components/CustomDay';
 import { toast } from 'react-toastify';
+import { BarChart } from '@mui/x-charts/BarChart';
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -186,6 +186,16 @@ function Estadisticas({ backToMain }) {
                                 {data.picked_orders_in_selected_dates}
                             </Typography>
                         </Box>
+                    </Grid>
+                    <Grid xs={8}>
+                        <BarChart
+                            xAxis={[{ scaleType: 'band', data: ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado'] }]}
+                            series={data.data_week}
+                            width={500}
+                            height={300}
+                            title="Ordenes por día de la semana"
+                            xAxisLabel="Día"
+                        />
                     </Grid>
                 </Grid> :
                 <Grid xs={8}>
