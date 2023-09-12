@@ -26,22 +26,26 @@ const OrderInfo = ({carrito}) => {
                     : 'Gratis'
                 }
             </Typography>
-            <Typography color="text.secondary" variant="body2" mt={2}>
-                {carrito.note
-                    ? ('Notas del comprador: ' + carrito.note)
-                    : ('No existen notas del comprador.')
-                }
+            <Typography variant="body1" mt={2}>
+                <strong>
+                    {carrito.note
+                        ? ('Notas del comprador: ' + carrito.note)
+                        : ('No existen notas del comprador.')
+                    }
+                </strong>
             </Typography>
 
             <Box mt={0.5}>
                 <Divider variant="middle" />
             </Box>
 
-            <Typography color="text.secondary" variant="body2" mt={0.5}>
-                {carrito.owner_note
-                    ? ('Notas de atención al cliente: ' + carrito.owner_note)
-                    : ('No existen notas de atención al cliente.')
-                }
+            <Typography variant="body1" mt={0.5}>
+                <strong>
+                    {carrito.owner_note
+                        ? ('Notas de atención al cliente: ' + carrito.owner_note)
+                        : ('No existen notas de atención al cliente.')
+                    }
+                </strong>
             </Typography>
         </Box>
     )
