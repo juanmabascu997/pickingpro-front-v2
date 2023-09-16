@@ -11,6 +11,7 @@ import dayjs from 'dayjs';
 import CustomDay from '../../components/CustomDay';
 import { toast } from 'react-toastify';
 import { BarChart } from '@mui/x-charts/BarChart';
+import LineChart from '../../components/LineChart';
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -187,16 +188,17 @@ function Estadisticas({ backToMain }) {
                             </Typography>
                         </Box>
                     </Grid>
-                    <Grid xs={8}>
-                        <BarChart
+                    <Box height="250px" m="-20px 0 0 0">
+                        <LineChart isDashboard={false} dataProps={data.data_week} />
+                        {/* <BarChart
                             xAxis={[{ scaleType: 'band', data: ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado'] }]}
                             series={data.data_week}
                             width={500}
                             height={300}
                             title="Ordenes por día de la semana"
                             xAxisLabel="Día"
-                        />
-                    </Grid>
+                        /> */}
+                    </Box>
                 </Grid> :
                 <Grid xs={8}>
                     <Item>{loading ? 'Cargando información de usuario...' : 'Seleccione un usuario para ver sus estadisticas'}</Item>

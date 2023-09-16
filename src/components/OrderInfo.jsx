@@ -26,7 +26,7 @@ const OrderInfo = ({carrito}) => {
                     : 'Gratis'
                 }
             </Typography>
-            <Typography variant="body1" mt={2}>
+            <Typography variant="h4" mt={2}>
                 <strong>
                     {carrito.note
                         ? ('Notas del comprador: ' + carrito.note)
@@ -39,7 +39,7 @@ const OrderInfo = ({carrito}) => {
                 <Divider variant="middle" />
             </Box>
 
-            <Typography variant="body1" mt={0.5}>
+            <Typography variant="h4" mt={0.5}>
                 <strong>
                     {carrito.owner_note
                         ? ('Notas de atención al cliente: ' + carrito.owner_note)

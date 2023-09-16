@@ -111,24 +111,6 @@ const Dashboard = () => {
             }
           />
         </Box>
-        {/* <Box
-          gridColumn="span 3"
-          backgroundColor={colors.primary[400]}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <StatBox
-            title="3"
-            subtitle="Gestiones de usuario"
-            progress="0.80"
-            icon={
-              <TrafficIcon
-                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
-              />
-            }
-          />
-        </Box> */}
         {/* ROW 2 */}
         <Box
           gridColumn="span 8"

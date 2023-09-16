@@ -1,12 +1,20 @@
 import { ResponsiveLine } from "@nivo/line";
 import { useTheme } from "@mui/material";
 import { tokens } from "../theme";
-import { mockLineData as data } from "../data/mockData";
+import { mockLineData } from "../data/mockData";
+import formatearData from "../data/formatearData";
 
 
-const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
+const LineChart = ({ isCustomLineColors = false, isDashboard = false, dataProps= [] }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  let data = [];
+
+  if(!isDashboard) {
+    data = formatearData(dataProps) 
+  } else {
+    data = mockLineData
+  }
 
   return (
     <ResponsiveLine
@@ -63,7 +71,7 @@ const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
         tickSize: 0,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isDashboard ? undefined : "transportation", // added
+        legend: isDashboard ? undefined : "Semana",
         legendOffset: 36,
         legendPosition: "middle",
       }}
@@ -73,7 +81,7 @@ const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
         tickSize: 3,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isDashboard ? undefined : "count", // added
+        legend: isDashboard ? undefined : "Cantidad", // added
         legendOffset: -40,
         legendPosition: "middle",
       }}
