@@ -52,17 +52,17 @@ const LineChart = ({ isCustomLineColors = false, isDashboard = false, dataProps=
           },
         },
       }}
-      colors={isDashboard ? { datum: "color" } : { scheme: "nivo" }} // added
+      colors={{ datum: "color" }}
       margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
       xScale={{ type: "point" }}
       yScale={{
         type: "linear",
-        min: "auto",
+        min: 0,
         max: "auto",
         stacked: true,
         reverse: false,
       }}
-      yFormat=" >-.2f"
+      yFormat="0"
       curve="catmullRom"
       axisTop={null}
       axisRight={null}
