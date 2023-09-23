@@ -51,6 +51,27 @@ function Acciones({data, action, getUsers}) {
             </>
         )
     }
+    if(action === 'reset') {
+        return (
+            <>
+                <BasicModal 
+                    open={open}
+                    handleClose={handleClose}
+                    data={!data.userValid}
+                    email={data.email}
+                    funtionality="Pass"
+                    getUsers={getUsers}
+                ></BasicModal>
+                <Button variant="contained"
+                    color="secondary"
+                    sx={{ m: "0 0 0 0" }}
+                    onClick={handleOpen}
+                >
+                    Password
+                </Button>
+            </>
+        )
+    }
 }
 
 export default Acciones

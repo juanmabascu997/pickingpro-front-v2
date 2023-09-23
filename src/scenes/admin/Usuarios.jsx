@@ -78,6 +78,19 @@ const Usuarios = ({ backToMain }) => {
         );
       },
     },
+    {
+      field: "resetPass",
+      headerName: "New Pass",
+      flex: 1,
+      cellClassName:'buttons--cell',
+      renderCell: (row) => {
+        return (
+          <>
+            <Acciones data={row.row} action="reset" getUsers={getUsers}/>
+          </>
+        );
+      },
+    },
   ];
 
   return (

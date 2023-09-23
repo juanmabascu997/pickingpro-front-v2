@@ -17,6 +17,9 @@ export const loginRoute = `${host}/auth/login`;
 export const validateUserRoute = `${host}/auth/validate`;
 export const adminUserRoute = `${host}/auth/admin-user`;
 export const validRoute = `${host}/auth/`;
+export const resetPasswordRoute = `${host}/auth/reset-pass`;
+
+
 export const dashboardData = `${host}/data/dashboard-data`;
 
 

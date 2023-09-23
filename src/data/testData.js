@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getProblemsRoute, dashboardData, host, packingProductsRoute, packOrderRoute, pickingProductsRoute, reportProblemRoute, setIsBeingPackagedBy, setPickedProductsRoute, stopBeingPackaged, solveProblemRoute, storeInfo, deleteStoreRoute, validateUserRoute, adminUserRoute, userDataDash, pedidoById, cancelPickRoute } from "../utils/APIRoutes";
+import { resetPasswordRoute, getProblemsRoute, dashboardData, host, packingProductsRoute, packOrderRoute, pickingProductsRoute, reportProblemRoute, setIsBeingPackagedBy, setPickedProductsRoute, stopBeingPackaged, solveProblemRoute, storeInfo, deleteStoreRoute, validateUserRoute, adminUserRoute, userDataDash, pedidoById, cancelPickRoute } from "../utils/APIRoutes";
 import dayjs from "dayjs";
 
 
@@ -320,6 +320,28 @@ export async function AdminUser(validate, toValidate, password) {
           password,
           toValidate,
           validate
+        },
+        { withCredentials: true }
+      )
+      return data;
+  } catch (error) {
+      console.log(error);
+  }
+}
+
+
+
+export async function ResetPass(password, newMail, newPassword) {
+  try {
+      const myUser = await JSON.parse(localStorage.getItem("userData"));
+      const { email } = myUser;
+
+      const { data } = await axios.put(resetPasswordRoute,
+        {
+          email,
+          password,
+          newMail,
+          newPassword
         },
         { withCredentials: true }
       )
