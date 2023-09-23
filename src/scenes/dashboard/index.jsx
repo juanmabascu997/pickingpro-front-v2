@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { Box, Typography, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
-import InventoryIcon from '@mui/icons-material/Inventory';
-import LibraryAddCheckIcon from '@mui/icons-material/LibraryAddCheck';
 import Header from "../../components/Header";
 import LineChart from "../../components/LineChart";
 import StatBox from "../../components/StatBox";
@@ -11,6 +9,8 @@ import { GetDashboardData } from '../../data/testData'
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 import { storeRoute } from '../../utils/APIRoutes';
+import { GetUserDashboardData } from '../../data/testData';
+import { Inventory, LibraryAddCheckOutlined } from '@mui/icons-material';
 
 const Dashboard = () => {
   const theme = useTheme();
@@ -21,9 +21,11 @@ const Dashboard = () => {
   const packingProducts = useSelector(state => state.packingProducts)
   const userInfo = useSelector(state => state.user)
   const [connectedStores, setConnectedStores] = React.useState([]);
+  const [data, setData] = React.useState(null)
 
   async function getStores () {
     const { data } = await axios.get(storeRoute);
+    
     if (data) {
       let res = data.map((e, index) => {
         return {
@@ -34,10 +36,18 @@ const Dashboard = () => {
       setConnectedStores(res);
     }
   }
+
+  const getData = async (id) => {
+    let date1 = new Date().setHours(20, 59, 59);
+    date1 = new Date(date1).toJSON()
+    
+    setData(await GetUserDashboardData(id, date1, null))
+  }
   
   React.useEffect(() => {
     GetDashboardData().then(res => setCardData(res))
     getStores()
+    getData(userInfo._id)
     setSubtitle("Bienvenido " + userInfo.name)
   }, [packingProducts])
 
@@ -69,7 +79,7 @@ const Dashboard = () => {
             subtitle="Pendientes de empaquetar"
             progress="0.75"
             icon={
-              <InventoryIcon
+              <Inventory
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
               />
             }
@@ -105,7 +115,7 @@ const Dashboard = () => {
             subtitle="Pendientes de pickeo"
             progress="0.30"
             icon={
-              <LibraryAddCheckIcon
+              <LibraryAddCheckOutlined
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
               />
             }
@@ -148,9 +158,27 @@ const Dashboard = () => {
               </IconButton>
             </Box> */}
           </Box>
-          <Box height="250px" m="-20px 0 0 0">
-            <LineChart isDashboard={true} />
-          </Box>
+          {
+            data ? 
+            <Box height="250px" m="-20px 0 0 0">
+              <LineChart isDashboard={false} dataProps={data.data_week} />
+            </Box>
+            : 
+            <Box 
+              height="250px" 
+              display="flex"
+              justifyContent="space-between"
+              alignItems="center"
+              p="15px"
+            >
+              <Typography
+                variant="h4"
+                color={colors.greenAccent[500]}
+              >
+                Cargando info ...
+              </Typography>
+            </Box>
+          }
         </Box>
         <Box
           gridColumn="span 4"

@@ -10,7 +10,6 @@ import { tokens } from '../../theme';
 import dayjs from 'dayjs';
 import CustomDay from '../../components/CustomDay';
 import { toast } from 'react-toastify';
-import { BarChart } from '@mui/x-charts/BarChart';
 import LineChart from '../../components/LineChart';
 
 
@@ -72,25 +71,25 @@ function Estadisticas({ backToMain }) {
     const getUsers = async () => {
         const { data } = await axios.get(usersRoute);
         if (data) {
-          let res = data.map((e, index) => {
+            let res = data.map((e, index) => {
             return {
-              ...e,
-              id: index,
+                ...e,
+                id: index,
             };
-          });
-          setUsers(res);
+            });
+            setUsers(res);
         }
-      };
+    };
     
-      useEffect(() => {
+    useEffect(() => {
         getUsers();
-      }, []);
+    }, []);
 
-      useEffect(() => {
+    useEffect(() => {
         if(user) {
             getData(user._id)
         }
-      }, [user, primeraFecha, segundaFecha]);
+    }, [user, primeraFecha, segundaFecha]);
 
   return (
     <Box m="20px">
