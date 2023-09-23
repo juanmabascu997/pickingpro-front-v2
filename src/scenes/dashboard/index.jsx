@@ -21,7 +21,7 @@ const Dashboard = () => {
   const packingProducts = useSelector(state => state.packingProducts)
   const userInfo = useSelector(state => state.user)
   const [connectedStores, setConnectedStores] = React.useState([]);
-  const [data, setData] = React.useState(null)
+  const [loading, setLoading] = React.useState(false)
 
   async function getStores () {
     const { data } = await axios.get(storeRoute);
@@ -37,18 +37,12 @@ const Dashboard = () => {
     }
   }
 
-  const getData = async (id) => {
-    let date1 = new Date().setHours(20, 59, 59);
-    date1 = new Date(date1).toJSON()
-    
-    setData(await GetUserDashboardData(id, date1, null))
-  }
-  
   React.useEffect(() => {
+    setLoading(true)
     GetDashboardData().then(res => setCardData(res))
     getStores()
-    getData(userInfo._id)
     setSubtitle("Bienvenido " + userInfo.name)
+    setLoading(false)
   }, [packingProducts])
 
 
@@ -159,9 +153,9 @@ const Dashboard = () => {
             </Box> */}
           </Box>
           {
-            data ? 
+            cardData && cardData.data_week && !loading ? 
             <Box height="250px" m="-20px 0 0 0">
-              <LineChart isDashboard={false} dataProps={data.data_week} />
+              <LineChart isDashboard={false} dataProps={cardData.data_week} />
             </Box>
             : 
             <Box 

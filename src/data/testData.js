@@ -1,5 +1,6 @@
 import axios from "axios";
 import { getProblemsRoute, dashboardData, host, packingProductsRoute, packOrderRoute, pickingProductsRoute, reportProblemRoute, setIsBeingPackagedBy, setPickedProductsRoute, stopBeingPackaged, solveProblemRoute, storeInfo, deleteStoreRoute, validateUserRoute, adminUserRoute, userDataDash, pedidoById, cancelPickRoute } from "../utils/APIRoutes";
+import dayjs from "dayjs";
 
 
 export async function Login(email, password) {
@@ -152,9 +153,19 @@ export async function ClearIsBeingPackagedBy(orderToPack) {
 
 export async function GetDashboardData() {
   try {
+      let d = new Date()
+      let day = dayjs(d)
+      let date1 = new Date(day).toJSON()
+      date1 = new Date(date1).setHours(20, 59, 59);
+      date1 = new Date(date1).toJSON()
+
       const myUser = await JSON.parse(localStorage.getItem("userData"));
+      const param = {
+        token: myUser.token,
+        primeraFecha: date1
+      }
       const { data } = await axios.get(dashboardData, {
-          params: myUser
+          params: param
       });
       if (data.err){
         return [];
