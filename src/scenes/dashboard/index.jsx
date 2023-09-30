@@ -73,7 +73,7 @@ const Dashboard = () => {
         <Typography
             variant="p"
             fontWeight="400">
-            Metas de Picking: {cardData?.picked_orders_in_the_week}  de {userInfo?.pickingGoals}
+            Metas de Picking: {cardData?.picked_orders_in_the_week}  de {userInfo?.pickingGoals ? userInfo.pickingGoals : 0}
           </Typography>
         <Box display="flex" flexDirection="column" alignItems="center">
           <CustomizedProgressBars
@@ -84,7 +84,7 @@ const Dashboard = () => {
         <Typography
             variant="p"
             fontWeight="400">
-            Metas de Packing: {cardData?.packed_orders_in_the_week}  de {userInfo?.packingGoals}
+            Metas de Packing: {cardData?.packed_orders_in_the_week}  de {userInfo?.packingGoals ? userInfo.packingGoals : 0}
           </Typography>
       </Box>
       <Box
