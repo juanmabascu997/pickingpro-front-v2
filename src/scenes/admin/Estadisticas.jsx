@@ -11,6 +11,7 @@ import dayjs from 'dayjs';
 import CustomDay from '../../components/CustomDay';
 import { toast } from 'react-toastify';
 import LineChart from '../../components/LineChart';
+import DialogGoals from './DialogGoals';
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -33,6 +34,8 @@ function Estadisticas({ backToMain }) {
     const [ segundaFechaHabilitada, setSegundaFechaHabilitada] = useState(false); 
 
     const [loading, setLoading] = useState(false)
+    const [open, setOpen] = useState(false)
+
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     
@@ -41,7 +44,11 @@ function Estadisticas({ backToMain }) {
            return val.target.value
         })
     }
-
+    
+    const handleOpen = (val) => {
+        setOpen(true)
+    }
+    
     const getData = async (id) => {
         setLoading(true)
         if(segundaFecha && segundaFechaHabilitada) {
@@ -104,6 +111,8 @@ function Estadisticas({ backToMain }) {
             </Button>
         </Box> 
         <Grid m="20px" container direction="row" justifyContent="start">
+            <DialogGoals user={user} setOpen={setOpen} open={open} />
+
             <Grid xs={4}>
                 <FormControl>
                     <Select 
@@ -147,56 +156,53 @@ function Estadisticas({ backToMain }) {
             {
                 data && !loading? 
                 <Grid xs={8}>
-                    <Grid xs={8}>
-                        <Box width="100%" component="span" sx={{ p: 2}} display={'flex'} flexDirection={'row'} alignItems={'center'} textAlign={'center'}>
+                    <Grid xs={12} style={{display: 'flex',flexDirection: 'row',flexWrap: 'wrap',}}>
+                        <Box component="span" sx={{ p: 2}} display={'flex'} flexDirection={'row'} alignItems={'center'} textAlign={'center'}>
                             <Chip label="Ordenes empaquetadas en la semana: " />
                             <Typography variant="h5" sx={{ color: colors.greenAccent[500] }}>
                                 {data.packed_orders_in_the_week}
                             </Typography>
                         </Box>
-                    </Grid>
-                    <Grid xs={8}>
-                        <Box width="100%" component="span" sx={{ p: 2}} display={'flex'} flexDirection={'row'} alignItems={'center'} textAlign={'center'}>
+                        <Box component="span" sx={{ p: 2}} display={'flex'} flexDirection={'row'} alignItems={'center'} textAlign={'center'}>
                             <Chip label="Ordenes pickeadas en la semana: " />
                             <Typography variant="h5" sx={{ color: colors.greenAccent[500] }}>
                                 {data.picked_orders_in_the_week}
                             </Typography>
                         </Box>
-                    </Grid>
-                    <Grid xs={8}>
-                        <Box width="100%" component="span" sx={{ p: 2}} display={'flex'} flexDirection={'row'} alignItems={'center'} textAlign={'center'}>
+                        <Box component="span" sx={{ p: 2}} display={'flex'} flexDirection={'row'} alignItems={'center'} textAlign={'center'}>
+                            <Chip label="Picking/Packing:" />
+                            <Typography variant="h5" sx={{ color: colors.greenAccent[500] }}>
+                                {user?.pickingGoals}/{user?.packingGoals} 
+                            </Typography>
+                        </Box>
+                        <Box component="span" sx={{ p: 2}} display={'flex'} flexDirection={'row'} alignItems={'center'} textAlign={'center'}>
                             <Chip label="Ordenes empaquetadas hoy: " />                                
                             <Typography variant="h5" sx={{ color: colors.greenAccent[500] }}>
                                 {data.packed_orders_today}
                             </Typography>
                         </Box>
-                    </Grid>
-                    <Grid xs={8}>
-                        <Box width="100%" component="span" sx={{ p: 2}} display={'flex'} flexDirection={'row'} alignItems={'center'} textAlign={'center'}>
+                        <Box component="span" sx={{ p: 2}} display={'flex'} flexDirection={'row'} alignItems={'center'} textAlign={'center'}>
                             <Chip label="Ordenes pickeadas hoy: " />                                
                             <Typography variant="h5" sx={{ color: colors.greenAccent[500] }}>
                                 {data.picked_orders_today}
                             </Typography>
                         </Box>
-                    </Grid>
-                    <Grid xs={8}>
-                        <Box width="100%" component="span" sx={{ p: 2}} display={'flex'} flexDirection={'row'} alignItems={'center'} textAlign={'center'}>
+                        <Box component="span" sx={{ p: 2}} display={'flex'} flexDirection={'row'} alignItems={'center'} textAlign={'center'}>
                             <Chip label="Ordenes pickeadas en las fechas seleccionadas: " />                                
                             <Typography variant="h5" sx={{ color: colors.greenAccent[500] }}>
                                 {data.picked_orders_in_selected_dates}
                             </Typography>
                         </Box>
                     </Grid>
+                    <Grid xs={8}>
+                        <Box width="100%" component="span" sx={{ p: 2}} display={'flex'} flexDirection={'row'} alignItems={'center'} textAlign={'center'}>
+                            <Button variant="contained" color="secondary" onClick={handleOpen}>
+                                Setear objetivos
+                            </Button>
+                        </Box>
+                    </Grid>
                     <Box height="250px" m="-20px 0 0 0">
                         <LineChart isDashboard={false} dataProps={data.data_week} />
-                        {/* <BarChart
-                            xAxis={[{ scaleType: 'band', data: ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado'] }]}
-                            series={data.data_week}
-                            width={500}
-                            height={300}
-                            title="Ordenes por día de la semana"
-                            xAxisLabel="Día"
-                        /> */}
                     </Box>
                 </Grid> :
                 <Grid xs={8}>

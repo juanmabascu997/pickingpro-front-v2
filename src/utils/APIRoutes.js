@@ -18,6 +18,9 @@ export const validateUserRoute = `${host}/auth/validate`;
 export const adminUserRoute = `${host}/auth/admin-user`;
 export const validRoute = `${host}/auth/`;
 export const resetPasswordRoute = `${host}/auth/reset-pass`;
+export const setPickingGoalsRoute = `${host}/admin/set-picking-goals`;
+export const setPackingGoalsRoute = `${host}/admin/set-packing-goals`;
+export const getGoalsRoute = `${host}/admin//get-goals`;
 
 
 export const dashboardData = `${host}/data/dashboard-data`;

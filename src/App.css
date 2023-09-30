@@ -38,3 +38,26 @@
 .css-1t1j96h-MuiPaper-root-MuiDialog-paper {
     width: 100% !important;
 }
+
+.circle {
+    background-color: #9a9ea8;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
+.change-color {
+    animation-name: change-color;
+}
+  
+@keyframes change-color {
+    from {
+        background-color: #9a9ea8;
+    }
+    50% {
+        background-color: #4f525c;
+    }
+    to {
+        background-color: #9a9ea8;
+    }
+}
