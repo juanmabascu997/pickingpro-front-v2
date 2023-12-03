@@ -68,7 +68,7 @@ export default function DialogGoals({ user, setOpen, open }) {
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Para continuar, seleccione que objetivos semanales va a setear.
+            Para continuar, seleccione que objetivos diarios va a setear.
           </DialogContentText>
         </DialogContent>
         <DialogContent>
@@ -97,7 +97,7 @@ export default function DialogGoals({ user, setOpen, open }) {
           <FormControl fullWidth>
             <FormLabel id="demo-radio-buttons-group-label">Objetivo:</FormLabel>
             <Typography id="non-linear-slider" gutterBottom>
-              Semanalmente: {valueLinear}
+              Diarios: {valueLinear}
             </Typography>
             <Slider
               value={valueLinear}

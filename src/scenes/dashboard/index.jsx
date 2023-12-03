@@ -65,7 +65,7 @@ const Dashboard = () => {
         </Typography>
         <Box display="flex" flexDirection="column" alignItems="center">
           <CustomizedProgressBars
-            progress={cardData?.picked_orders_in_the_week}
+            progress={cardData?.picked_orders_today}
             limit={userInfo?.pickingGoals}
           />
           
@@ -73,18 +73,18 @@ const Dashboard = () => {
         <Typography
             variant="p"
             fontWeight="400">
-            Metas de Picking: {cardData?.picked_orders_in_the_week}  de {userInfo?.pickingGoals ? userInfo.pickingGoals : 0}
+            Metas de Picking: {cardData?.picked_orders_today}  de {userInfo?.pickingGoals ? userInfo.pickingGoals : 0}
           </Typography>
         <Box display="flex" flexDirection="column" alignItems="center">
           <CustomizedProgressBars
-            progress={cardData?.packed_orders_in_the_week}
+            progress={cardData?.packed_orders_today}
             limit={userInfo?.packingGoals}
           />
         </Box>
         <Typography
             variant="p"
             fontWeight="400">
-            Metas de Packing: {cardData?.packed_orders_in_the_week}  de {userInfo?.packingGoals ? userInfo.packingGoals : 0}
+            Metas de Packing: {cardData?.packed_orders_today}  de {userInfo?.packingGoals ? userInfo.packingGoals : 0}
           </Typography>
       </Box>
       <Box
