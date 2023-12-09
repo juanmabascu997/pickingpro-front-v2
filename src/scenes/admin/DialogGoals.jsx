@@ -103,7 +103,7 @@ export default function DialogGoals({ user, setOpen, open }) {
               value={valueLinear}
               min={5}
               step={1}
-              max={400}
+              max={1500}
               getAriaValueText={valueLabelFormat}
               valueLabelFormat={valueLabelFormat}
               onChange={handleChangeLinear}
