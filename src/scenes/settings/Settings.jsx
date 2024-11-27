@@ -63,6 +63,17 @@ const Settings = () => {
         return (
           <>
             <DeleteDialog row={row.row} reloadPage={reloadPage} reload={reload}/>
+          </>
+        );
+      },
+    },
+    {
+      field: "Descargar",
+      headerName: "Descargar",
+      flex: 1,
+      renderCell: (row) => {
+        return (
+          <>
             <Dowload row={row.row} />
           </>
         );
