@@ -7,6 +7,7 @@ import { storeRoute } from "../../utils/APIRoutes";
 import axios from "axios";
 import ScrollDialogSettings from "./DialogSettings";
 import DeleteDialog from "./DeleteDialog";
+import Dowload from "./Dowload";
 
 const Settings = () => {
   const theme = useTheme();
@@ -62,6 +63,7 @@ const Settings = () => {
         return (
           <>
             <DeleteDialog row={row.row} reloadPage={reloadPage} reload={reload}/>
+            <Dowload row={row.row} />
           </>
         );
       },
