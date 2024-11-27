@@ -22,6 +22,7 @@ import {
   setPickingGoalsRoute,
   setPackingGoalsRoute,
   getGoalsRoute,
+  getDowloadFile
 } from "../utils/APIRoutes";
 import dayjs from "dayjs";
 
@@ -395,3 +396,15 @@ export async function GetGoals({email = null}) {
     console.log(error);
   }
 }
+
+export async function DowloadData({nombre}) {
+  try {   
+    const { data } = await axios.get(
+      `${getDowloadFile}?storeName=${nombre}`
+    );
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
