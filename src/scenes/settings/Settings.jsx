@@ -67,18 +67,18 @@ const Settings = () => {
         );
       },
     },
-    {
-      field: "Descargar",
-      headerName: "Descargar",
-      flex: 1,
-      renderCell: (row) => {
-        return (
-          <>
-            <Dowload row={row.row} />
-          </>
-        );
-      },
-    },
+    // {
+    //   field: "Descargar",
+    //   headerName: "Descargar",
+    //   flex: 1,
+    //   renderCell: (row) => {
+    //     return (
+    //       <>
+    //         <Dowload row={row.row} />
+    //       </>
+    //     );
+    //   },
+    // },
   ];
 
   return (

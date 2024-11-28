@@ -399,7 +399,7 @@ export async function GetGoals({email = null}) {
 
 export async function DowloadData(nombre) {
   try {   
-    const response = await axios.get(`${getDowloadFile}?storeName=${nombre}`, {
+    const response = await axios.get(`${getDowloadFile}?storeName=${nombre}&created_at_min=2024-11-29&created_at_max=2024-11-28`, {
       responseType: 'blob',
     });
 
