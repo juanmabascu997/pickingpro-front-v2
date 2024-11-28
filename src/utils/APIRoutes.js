@@ -24,7 +24,7 @@ export const getGoalsRoute = `${host}/admin//get-goals`;
 
 
 export const dashboardData = `${host}/data/dashboard-data`;
-export const getDowloadFile = `${host}/data/getDowloadFile`;
+export const getDowloadFile = `${host}/data/data-peer-date`;
 
 export const usersRoute = `${host}/info/users-data`;
 export const userDataDash = `${host}/info/user-data-dashboard`;

@@ -397,12 +397,20 @@ export async function GetGoals({email = null}) {
   }
 }
 
-export async function DowloadData({nombre}) {
+export async function DowloadData(nombre) {
   try {   
-    const { data } = await axios.get(
-      `${getDowloadFile}?storeName=${nombre}`
-    );
-    return data;
+    const response = await axios.get(`${getDowloadFile}?storeName=${nombre}`, {
+      responseType: 'blob',
+    });
+
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', `${nombre}_orders.xlsx`); 
+
+    document.body.appendChild(link);
+    link.click();
+    link.parentNode.removeChild(link);
   } catch (error) {
     console.log(error);
   }
